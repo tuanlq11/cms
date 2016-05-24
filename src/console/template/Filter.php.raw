@@ -1,0 +1,13 @@
+<?php
+namespace App\Http\Modules\{MODULE}\filters;
+
+use Kris\LaravelFormBuilder\Form;
+
+/**
+ * Created by Core Generater
+ * User: tuanlq
+ */
+class {MODULE}Filter extends Form
+{
+
+}

@@ -1,0 +1,24 @@
+{
+  "name": "tuanlq11/cms",
+  "description": "CMS - Admin",
+  "license": "MIT",
+  "minimum-stability": "stable",
+  "authors": [
+    {
+      "name": "Fallen",
+      "email": "tuanlq.it@gmail.com"
+    }
+  ],
+  "require": {
+    "php": ">=5.5.9",
+    "laravel/framework": ">=5.2.0",
+    "waavi/translation": "2.1.4.*",
+    "tuanlq11/auditing": "~0.1.0",
+    "tuanlq11/dbi18n": "dev-master"
+  },
+  "autoload": {
+    "psr-4": {
+      "tuanlq11\\cms\\": "src/"
+    }
+  }
+}

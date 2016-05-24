@@ -1,0 +1,14 @@
+<?php
+namespace App\Http\Modules\{MODULE};
+
+use Core\Bases\Module\BaseActions;
+
+/**
+ * Created by Core Generater
+ * User: tuanlq
+ */
+
+class {MODULE}Actions extends BaseActions
+{
+
+}
