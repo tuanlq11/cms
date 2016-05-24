@@ -1,5 +1,4 @@
 <?php
-namespace Provider;
 
 use App\Models\Group;
 use Core\Console\GeneratorCommand;
