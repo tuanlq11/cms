@@ -1,11 +1,11 @@
 <?php
 namespace App\Http\Modules\{MODULE};
 
-use Core\Bases\Module\BaseActions;
+use tuanlq11\cms\skeleton\module\BaseActions;
 
 /**
- * Created by Core Generater
- * User: tuanlq
+ * Created by CMS Generater
+ * User: fallen
  */
 
 class {MODULE}Actions extends BaseActions

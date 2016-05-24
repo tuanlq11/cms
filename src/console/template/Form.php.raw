@@ -5,7 +5,7 @@ use Kris\LaravelFormBuilder\Form;
 
 /**
  * Created by Core Generator
- * User: tuanlq
+ * User: fallen
  */
 class {MODULE}Form extends Form
 {

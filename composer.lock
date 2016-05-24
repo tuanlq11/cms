@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "729450825f1664be215794a2b2fef9ce",
-    "content-hash": "d3486b47aff3a56a7df3d00660cf6681",
+    "hash": "c2a6bd7d556d70b28bccd0ba2b45886f",
+    "content-hash": "bff905fac08c1d9de729d9013a2ede0e",
     "packages": [
         {
             "name": "classpreloader/classpreloader",
@@ -709,6 +709,60 @@
             "time": "2015-12-05 17:17:57"
         },
         {
+            "name": "kris/laravel-form-builder",
+            "version": "1.6.50",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/kristijanhusak/laravel-form-builder.git",
+                "reference": "627c5e40b8c5e29fb8e68d142bcd3379cd850611"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/kristijanhusak/laravel-form-builder/zipball/627c5e40b8c5e29fb8e68d142bcd3379cd850611",
+                "reference": "627c5e40b8c5e29fb8e68d142bcd3379cd850611",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/database": "5.*@dev",
+                "illuminate/validation": "5.*@dev",
+                "laravelcollective/html": "5.*",
+                "php": ">=5.5.0"
+            },
+            "require-dev": {
+                "orchestra/testbench": "~3.0",
+                "phpunit/phpunit": "~4.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.6.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Kris\\LaravelFormBuilder": "src/"
+                },
+                "classmap": [
+                    "tests/FormBuilderTestCase.php"
+                ],
+                "files": [
+                    "src/helpers.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Kristijan Husak",
+                    "email": "husakkristijan@gmail.com"
+                }
+            ],
+            "description": "Laravel form builder - symfony like",
+            "time": "2016-01-22 12:48:35"
+        },
+        {
             "name": "laravel/framework",
             "version": "v5.2.32",
             "source": {
@@ -836,6 +890,60 @@
                 "laravel"
             ],
             "time": "2016-05-17 13:24:40"
+        },
+        {
+            "name": "laravelcollective/html",
+            "version": "v5.2.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/LaravelCollective/html.git",
+                "reference": "3a312d39ffe37da0f57b602618b61fd07c1fcec5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/LaravelCollective/html/zipball/3a312d39ffe37da0f57b602618b61fd07c1fcec5",
+                "reference": "3a312d39ffe37da0f57b602618b61fd07c1fcec5",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/http": "5.2.*",
+                "illuminate/routing": "5.2.*",
+                "illuminate/session": "5.2.*",
+                "illuminate/support": "5.2.*",
+                "illuminate/view": "5.2.*",
+                "php": ">=5.5.9"
+            },
+            "require-dev": {
+                "illuminate/database": "5.2.*",
+                "mockery/mockery": "~0.9",
+                "phpunit/phpunit": "~4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Collective\\Html\\": "src/"
+                },
+                "files": [
+                    "src/helpers.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Taylor Otwell",
+                    "email": "taylorotwell@gmail.com"
+                },
+                {
+                    "name": "Adam Engebretson",
+                    "email": "adam@laravelcollective.com"
+                }
+            ],
+            "description": "HTML and Form Builders for the Laravel Framework",
+            "homepage": "http://laravelcollective.com",
+            "time": "2016-01-27 22:29:54"
         },
         {
             "name": "league/flysystem",
@@ -2170,21 +2278,21 @@
         },
         {
             "name": "tuanlq11/dbi18n",
-            "version": "dev-master",
+            "version": "1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tuanlq11/dbi18n.git",
-                "reference": "738e3cb1628c87d0dcf2dd40310826c838216fc6"
+                "reference": "6d7d4b6bd9cf9897b7e351656e87d0755a99644c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tuanlq11/dbi18n/zipball/738e3cb1628c87d0dcf2dd40310826c838216fc6",
-                "reference": "738e3cb1628c87d0dcf2dd40310826c838216fc6",
+                "url": "https://api.github.com/repos/tuanlq11/dbi18n/zipball/6d7d4b6bd9cf9897b7e351656e87d0755a99644c",
+                "reference": "6d7d4b6bd9cf9897b7e351656e87d0755a99644c",
                 "shasum": ""
             },
             "require": {
-                "laravel/framework": ">=5.1.0",
-                "php": ">=5.4.0"
+                "laravel/framework": "~5",
+                "php": ">=5.5.9"
             },
             "type": "library",
             "autoload": {
@@ -2203,7 +2311,7 @@
                 }
             ],
             "description": "Support Database Multi-Language",
-            "time": "2016-05-24 01:23:27"
+            "time": "2016-05-24 08:57:55"
         },
         {
             "name": "vlucas/phpdotenv",
@@ -2315,9 +2423,7 @@
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "tuanlq11/dbi18n": 20
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {

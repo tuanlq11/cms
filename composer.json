@@ -12,6 +12,7 @@
   "require": {
     "php": ">=5.5.9",
     "laravel/framework": ">=5.2.0",
+    "kris/laravel-form-builder": "^1.6",
     "waavi/translation": "2.1.4.*",
     "tuanlq11/auditing": "~0.1.0",
     "tuanlq11/dbi18n": "~1.0.0"

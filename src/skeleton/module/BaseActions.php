@@ -1,19 +1,19 @@
 <?php
 
-namespace Core\Bases\Module;
+namespace tuanlq11\cms\skeleton\module;
 
-use Core\Bases\Module\Base\BatchAction;
-use Core\Bases\Module\Base\Form;
-use Core\Bases\Module\Base\Language;
-use Core\Bases\Module\Base\ObjectAction;
-use Core\Bases\Module\Base\Render;
-use Core\Bases\Module\Base\Action;
-use Core\Bases\Module\Base\Authenticate;
-use Core\Bases\Module\Base\Base;
-use Core\Bases\Module\Base\Configure;
-use Core\Bases\Module\Base\Query;
-use Core\Bases\Module\Base\Filter;
-use Core\Bases\Module\Base\SubAction;
+use tuanlq11\cms\skeleton\module\base\BatchAction;
+use tuanlq11\cms\skeleton\module\base\Form;
+use tuanlq11\cms\skeleton\module\base\Language;
+use tuanlq11\cms\skeleton\module\base\ObjectAction;
+use tuanlq11\cms\skeleton\module\base\Render;
+use tuanlq11\cms\skeleton\module\base\Action;
+use tuanlq11\cms\skeleton\module\base\Authenticate;
+use tuanlq11\cms\skeleton\module\base\Base;
+use tuanlq11\cms\skeleton\module\base\Configure;
+use tuanlq11\cms\skeleton\module\base\Query;
+use tuanlq11\cms\skeleton\module\base\Filter;
+use tuanlq11\cms\skeleton\module\base\SubAction;
 use Route, Config, View, App, Session, Request;
 
 class BaseActions extends Base

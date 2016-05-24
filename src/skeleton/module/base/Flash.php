@@ -1,4 +1,5 @@
 <?php
+namespace tuanlq11\cms\skeleton\module\base;
 
 /**
  * Created by Mr.Tuan.

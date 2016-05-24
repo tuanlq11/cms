@@ -5,7 +5,7 @@ use Kris\LaravelFormBuilder\Form;
 
 /**
  * Created by Core Generater
- * User: tuanlq
+ * User: fallen
  */
 class {MODULE}Filter extends Form
 {

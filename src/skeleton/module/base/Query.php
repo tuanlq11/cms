@@ -1,6 +1,6 @@
 <?php
 
-namespace Core\Bases\Module\Base;
+namespace tuanlq11\cms\skeleton\module\base;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;

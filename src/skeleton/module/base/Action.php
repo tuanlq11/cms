@@ -1,6 +1,6 @@
 <?php
 
-namespace Core\Bases\Module\Base;
+namespace tuanlq11\cms\skeleton\module\base;
 
 use App\Models\Permission;
 use Illuminate\Database\Eloquent\Collection;

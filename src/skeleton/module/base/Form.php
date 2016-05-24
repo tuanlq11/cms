@@ -1,5 +1,5 @@
 <?php
-namespace Core\Bases\Module\Base;
+namespace tuanlq11\cms\skeleton\module\base;
 
 use App\Http\Modules\User\forms\UserForm;
 use Illuminate\Database\Eloquent\Model;
