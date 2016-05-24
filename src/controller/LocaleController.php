@@ -1,7 +1,8 @@
 <?php
-namespace Core\Controller;
+namespace tuanlq11\controller;
 
 use Config, Input, Validator, Session, App, Response, URL, Redirect;
+use tuanlq11\cms\model\Language;
 
 /**
  * Created by Mr.Tuan.
@@ -9,11 +10,11 @@ use Config, Input, Validator, Session, App, Response, URL, Redirect;
  * Date: 3/23/16
  * Time: 7:35 AM
  */
-class IndexController extends \App\Http\Controllers\Controller
+class LocaleController extends \App\Http\Controllers\Controller
 {
     public function switchLang()
     {
-        $supported_lang = \App\Models\Language::all()->toArray();
+        $supported_lang = Language::all()->toArray();
         $supported_lang = array_pluck($supported_lang, 'name', 'locale');
 
         $rules = [
