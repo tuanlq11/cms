@@ -1,0 +1,7 @@
+- config/app.php:
+    Add provider:
+        \tuanlq11\cms\CMSProvider::class,
+        \tuanlq11\auditing\AuditingProvider::class,
+        \Kris\LaravelFormBuilder\FormBuilderServiceProvider::class,
+    Replace provider:
+        Illuminate\Translation\TranslationServiceProvider::class => Waavi\Translation\TranslationServiceProvider::class
