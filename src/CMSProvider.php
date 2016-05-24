@@ -124,23 +124,25 @@ class CMSProvider extends ServiceProvider
                 /** Get middleware config */
                 $middleware = array_get($route, 'middleware', null);
 
-                Route::$method($url, ['uses' => $controllerMethod, 'as' => $as, 'middleware' => $middleware]);
-                Route::bind(strtolower($module_name), function ($value) use ($module_name) {
-                    $model_class = "App\\Models\\{$module_name}";
-                    $locale      = Session::get('language', 'en');
-                    if (!class_exists($model_class)) return $value;
-                    /** @var Model $model */
-                    $model   = new $model_class();
-                    $is_i18n = method_exists($model, 'saveI18N');
-                    /** @var Builder $query */
-                    $query = $is_i18n ? $model_class::I18N($locale) : $model_class::query();
+                Route::group(['middleware' => ['web']], function () use ($method, $url, $controllerMethod, $middleware, $module_name, $as) {
+                    Route::$method($url, ['uses' => $controllerMethod, 'as' => $as, 'middleware' => $middleware]);
+                    Route::bind(strtolower($module_name), function ($value) use ($module_name) {
+                        $model_class = "App\\Models\\{$module_name}";
+                        $locale      = Session::get('language', 'en');
+                        if (!class_exists($model_class)) return $value;
+                        /** @var Model $model */
+                        $model   = new $model_class();
+                        $is_i18n = method_exists($model, 'saveI18N');
+                        /** @var Builder $query */
+                        $query = $is_i18n ? $model_class::I18N($locale) : $model_class::query();
 
-                    if ($is_i18n) $query->select(\DB::raw("i18n.*,{$model->getTable()}.*"));
+                        if ($is_i18n) $query->select(\DB::raw("i18n.*,{$model->getTable()}.*"));
 
-                    $obj = $query->find($value);
-                    if (!$obj) abort(404, 'Data not found');
+                        $obj = $query->find($value);
+                        if (!$obj) abort(404, 'Data not found');
 
-                    return $obj;
+                        return $obj;
+                    });
                 });
             }
         }
