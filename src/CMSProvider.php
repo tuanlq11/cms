@@ -1,4 +1,5 @@
 <?php
+namespace tuanlq11\cms;
 
 use App\Models\Group;
 use Core\Console\GeneratorCommand;
