@@ -18,7 +18,7 @@ class GeneratorCommand extends Command
     /** @var string */
     protected $module_path = "app/Http/Modules/";
     /** @var string */
-    protected $name = "core:generate";
+    protected $name = "cms:generate";
 
     /**
      * GeneratorCommand constructor.
