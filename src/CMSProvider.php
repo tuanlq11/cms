@@ -1,10 +1,11 @@
 <?php
-namespace Core;
+namespace Provider;
 
 use App\Models\Group;
 use Core\Console\GeneratorCommand;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use \Illuminate\Support\ServiceProvider;
 use Route, Validator, View, Session;
 
 /**
@@ -13,7 +14,7 @@ use Route, Validator, View, Session;
  * Date: 1/15/16
  * Time: 11:16 AM
  */
-class CoreProvider extends \Illuminate\Support\ServiceProvider
+class CMSProvider extends ServiceProvider
 {
     /**
      * Default route each module.
