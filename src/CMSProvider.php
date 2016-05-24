@@ -2,7 +2,7 @@
 namespace tuanlq11\cms;
 
 use App\Models\Group;
-use Core\Console\GeneratorCommand;
+use tuanlq11\cms\console\GeneratorCommand;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use \Illuminate\Support\ServiceProvider;
@@ -78,6 +78,18 @@ class CMSProvider extends ServiceProvider
 
         $this->configRoute();
         View::addNamespace("System", base_path() . "/core/bases/module/view");
+    }
+
+    /**
+     * Copy migration to root project
+     * @param Application $app
+     */
+    private function initMigration(Application $app)
+    {
+        if ($app instanceof \Illuminate\Foundation\Application && $app->runningInConsole()) {
+            $migrationPath = realpath(__DIR__ . '/migration');
+            $this->publishes([$migrationPath => database_path('migrations')]);
+        }
     }
 
     /**

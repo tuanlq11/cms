@@ -1,5 +1,5 @@
 <?php
-namespace Core\Console;
+namespace tuanlq11\cms\console;
 
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputArgument;
