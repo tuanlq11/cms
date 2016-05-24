@@ -78,6 +78,9 @@ class CMSProvider extends ServiceProvider
 
         $this->configRoute();
         View::addNamespace("System", base_path() . "/core/bases/module/view");
+
+        /** Publish Migration */
+        $this->initMigration();
     }
 
     /**
