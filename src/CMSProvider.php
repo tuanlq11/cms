@@ -6,6 +6,7 @@ use tuanlq11\cms\console\GeneratorCommand;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use \Illuminate\Support\ServiceProvider;
+use Illuminate\Contracts\Foundation\Application;
 use Route, Validator, View, Session;
 
 /**
