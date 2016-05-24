@@ -1,5 +1,5 @@
 <?php
-namespace tuanlq11\controller;
+namespace tuanlq11\cms\controller;
 
 use Config, Input, Validator, Session, App, Response, URL, Redirect;
 use tuanlq11\cms\model\Language;
