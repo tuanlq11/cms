@@ -38,7 +38,7 @@ class GeneratorCommand extends Command
      */
     public function fire()
     {
-        $this->file->makeDirectory($this->module_path);
+        $this->file->makeDirectory($this->module_path, 0777, false, true);
 
         $moduleName   = $this->argument('Module Name');
         $modulePath   = $this->module_path . "/" . $moduleName;
