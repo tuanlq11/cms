@@ -5,3 +5,5 @@
         \Kris\LaravelFormBuilder\FormBuilderServiceProvider::class,
     Replace provider:
         Illuminate\Translation\TranslationServiceProvider::class => Waavi\Translation\TranslationServiceProvider::class
+    Add to aliases:
+        'FormBuilder' => Kris\LaravelFormBuilder\Facades\FormBuilder::class,
