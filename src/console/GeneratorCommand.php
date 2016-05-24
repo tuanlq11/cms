@@ -26,7 +26,7 @@ class GeneratorCommand extends Command
     public function __construct()
     {
         $this->module_path = sprintf("%s/%s", base_path(), 'app/Http/Modules');
-        $this->file = new Filesystem();
+        $this->file        = new Filesystem();
 
         parent::__construct();
     }
@@ -38,25 +38,26 @@ class GeneratorCommand extends Command
      */
     public function fire()
     {
-        $moduleName = $this->argument('Module Name');
-        $modulePath = $this->module_path . "/" . $moduleName;
+        $moduleName   = $this->argument('Module Name');
+        $modulePath   = $this->module_path . "/" . $moduleName;
         $existModules = array_map('strtolower', $this->file->directories($this->module_path));
         if (in_array(strtolower($modulePath), $existModules)) {
             $this->error("Module is exist");
         }
+
         foreach (['', '/configs', '/forms', '/filters', '/views'] as $sub) {
             $this->file->makeDirectory($modulePath . $sub, 0777, true, true);
         }
-        $actionContent = str_replace('{MODULE}', $moduleName, file_get_contents(__DIR__ . '/Actions.php.raw'));
-        $formContent = str_replace('{MODULE}', $moduleName, file_get_contents(__DIR__ . '/Form.php.raw'));
-        $filterContent = str_replace('{MODULE}', $moduleName, file_get_contents(__DIR__ . '/Filter.php.raw'));
+
+        $actionContent = str_replace('{MODULE}', $moduleName, file_get_contents(__DIR__ . '/template/Actions.php.raw'));
+        $formContent   = str_replace('{MODULE}', $moduleName, file_get_contents(__DIR__ . '/template/Form.php.raw'));
+        $filterContent = str_replace('{MODULE}', $moduleName, file_get_contents(__DIR__ . '/template/Filter.php.raw'));
 
         $this->file->put($modulePath . "/{$moduleName}Actions.php", $actionContent);
         $this->file->put($modulePath . "/forms/{$moduleName}Form.php", $formContent);
         $this->file->put($modulePath . "/filters/{$moduleName}Filter.php", $filterContent);
 
-        $this->file->copy(__DIR__ . "/../bases/module/config/default.php", $modulePath . "/configs/config.php");
-        $this->file->copy(__DIR__ . "/../bases/module/config/default.php", $modulePath . "/configs/config.php");
+        $this->file->copy(__DIR__ . "/../skeleton/module/config/default.php", $modulePath . "/configs/config.php");
     }
 
     /**
