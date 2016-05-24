@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace tuanlq11\cms\model;
 
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
@@ -14,8 +14,6 @@ use tuanlq11\auditing\AuditingTrait;
 /**
  * App\Models\User
  *
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Role[] $roles
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Group[] $groups
  * @property integer $id
  * @property string $name
  * @property string $email

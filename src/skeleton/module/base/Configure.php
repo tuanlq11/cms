@@ -96,7 +96,7 @@ trait Configure
      */
     protected function loadDynamicConfig()
     {
-        $modelName = "App\\Models\\Permission";
+        $modelName = "tuanlq11\\cms\\model\\Permission";
         /** @var Model $model */
         $model = new $modelName();
         $query = $model->query();

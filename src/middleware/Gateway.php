@@ -2,7 +2,7 @@
 
 namespace tuanlq11\cms\middleware;
 
-use App\Models\User;
+use tuanlq11\cms\model\User;
 use Request, Closure, Route, Config, Auth, Session;
 
 class Gateway
