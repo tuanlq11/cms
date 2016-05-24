@@ -197,10 +197,10 @@ class CMSProvider extends ServiceProvider
 
     public function register()
     {
-        $this->app['command.core.generate'] = $this->app->share(function ($app) {
+        $this->app['command.cms.generate'] = $this->app->share(function ($app) {
             return new GeneratorCommand();
         });
 
-        $this->commands(['command.core.generate']);
+        $this->commands(['command.cms.generate']);
     }
 }

@@ -1,4 +1,10 @@
 <?php
+namespace tuanlq11\cms\model;
+
+use Illuminate\Database\Eloquent\Model;
+use tuanlq11\auditing\AuditingTrait;
+use tuanlq11\dbi18n\I18NDBTrait;
+use Illuminate\Support\Facades\Session;
 
 class Group extends Model
 {
@@ -14,7 +20,7 @@ class Group extends Model
 
     protected function bootIfNotBooted()
     {
-        $this->i18n_default_locale = \Session::get("language", "en");
+        $this->i18n_default_locale = Session::get("language", "en");
         parent::bootIfNotBooted();
     }
 
@@ -44,7 +50,7 @@ class Group extends Model
      */
     public function roles()
     {
-        return $this->belongsToMany('App\Models\Role', 'role_group_relation', 'group_id', 'role_id');
+        return $this->belongsToMany('tuanlq11\model\Role', 'role_group_relation', 'group_id', 'role_id');
     }
 
     /**
@@ -52,12 +58,12 @@ class Group extends Model
      */
     public function users()
     {
-        return $this->hasMany('App\Models\User', 'user_group_relation', 'user_id', 'group_id');
+        return $this->hasMany('tuanlq11\model\User', 'user_group_relation', 'user_id', 'group_id');
     }
 
     public function groupTranslations()
     {
-        return $this->hasMany('App\Models\GroupI18N', 'groups_i18n', 'user_id', 'group_id');
+        return $this->hasMany('tuanlq11\model\GroupI18N', 'groups_i18n', 'user_id', 'group_id');
     }
 
     /**
