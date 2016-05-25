@@ -131,7 +131,7 @@ class CMSProvider extends ServiceProvider
                 $as = array_get($route, 'as', sprintf("%s.%s", strtolower($module_name), $route_name));
 
                 /** Get middleware config */
-                $middleware = array_get($route, 'middleware', null);
+                $middleware = array_get($route, 'middleware', ['web']);
 
                 Route::$method($url, ['uses' => $controllerMethod, 'as' => $as, 'middleware' => $middleware]);
             }
