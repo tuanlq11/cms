@@ -2,7 +2,7 @@
 namespace App\Http\Modules\Authenticate;
 
 use View;
-use Core\Bases\Module\BaseActions;
+use tuanlq11\cms\skeleton\module\BaseActions;
 
 /**
  * Created by Fallen
