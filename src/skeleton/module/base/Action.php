@@ -139,6 +139,10 @@ trait Action
      */
     public function update($obj)
     {
+        if (!$obj = $this->loadBindingModel($obj)) {
+            abort(404, trans('cms.not_found_object'));
+        }
+
         if (isset($_REQUEST["_delete"])) {
             $obj->delete();
 
@@ -174,6 +178,10 @@ trait Action
      */
     public function destroy($obj)
     {
+        if (!$obj = $this->loadBindingModel($obj)) {
+            abort(404, trans('cms.not_found_object'));
+        }
+        
         if (empty($obj)) return redirect($this->getGeneratedUrl('index'))->with('Message', trans('delete.notexists'));
 
         $obj->delete();
