@@ -160,7 +160,7 @@ class CMSProvider extends ServiceProvider
         }
 
         /** Route change language */
-        Route::get('/lang/switch', ['as' => 'switch_lang', 'uses' => 'tuanlq11\cms\controller\LocaleController@switchLang']);
+        Route::get('/lang/switch', ['as' => 'switch_lang', 'middleware' => ['web', 'guest'], 'uses' => 'tuanlq11\cms\controller\LocaleController@switchLang']);
         /** End */
     }
 
@@ -175,9 +175,12 @@ class CMSProvider extends ServiceProvider
     protected function generateURL($action, $module_name)
     {
         $defaultUrl = array_get($this->defaultUrl, $action, '');
-        $url        = str_replace('{PREFIX}', sprintf('/%s', strtolower($module_name)), $defaultUrl);
-        $url        = str_replace('{MODULENAME}', strtolower($module_name), $url);
-        $url        = str_replace('{ACTION}', strtolower($action), $url);
+        $url        = str_replace('{
+        PREFIX}', sprintf(' /%s', strtolower($module_name)), $defaultUrl);
+        $url        = str_replace('{
+        MODULENAME}', strtolower($module_name), $url);
+        $url        = str_replace('{
+        ACTION}', strtolower($action), $url);
 
         return $url;
     }
@@ -188,7 +191,7 @@ class CMSProvider extends ServiceProvider
     protected function getListModules()
     {
         $result  = [];
-        $modules = array_filter(glob(base_path() . '/app/Http/Modules/*'), 'is_dir');
+        $modules = array_filter(glob(base_path() . ' / app / Http / Modules/*'), 'is_dir');
         foreach ($modules as $module_path) {
             $moduleName = basename($module_path);
 
