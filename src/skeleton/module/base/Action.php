@@ -8,7 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 use Response, View, Redirect, Session, Request;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Pagination\LengthAwarePaginator;
-use Input, URL, Route;
+use Illuminate\Support\Facades\Input;
+use URL, Route;
 
 /**
  * User: Mr.Tuan
