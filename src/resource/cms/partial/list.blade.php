@@ -3,7 +3,7 @@
 <div class="col-sm-3 text-right">
     <div class="batch-action" id="dataTables-example_info" role="status" aria-live="polite">
         @section('batchAction')
-            @include("System::partial.batchAction")
+            @include("cms::partial.batchAction")
         @show
     </div>
 </div>
@@ -71,7 +71,7 @@
     </div>
 </div>
 <div class="row">
-    @include("System::partial.pagination")
+    @include("cms::partial.pagination")
 </div>
 @else
         <!-- <div class="col-lg-12"> -->

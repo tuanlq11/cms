@@ -1,19 +1,19 @@
 @extends($layout)
 
 @section('page-header')
-    @include('System::partial.pageHeader')
+    @include('cms::partial.pageHeader')
 @stop
 
 @section('flash')
-    @include("System::partial.flash")
+    @include("cms::partial.flash")
 @stop
 
 @section('content')
     @section('filter')
-        @include("System::partial.filter")
+        @include("cms::partial.filter")
     @show
     @section('list')
-        @include("System::partial.list")
+        @include("cms::partial.list")
     @show
 @stop
 

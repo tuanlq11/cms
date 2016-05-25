@@ -20,9 +20,9 @@
 <div id="wrapper" class="scrollbar-macosx">
     @if(!isset($is_iframe) || !$is_iframe)
             <!-- Site Header -->
-    @include('System::partial.header')
+    @include('cms::partial.header')
             <!-- Site Navigation -->
-    @include('System::partial.navigation')
+    @include('cms::partial.navigation')
     @endif
 
             <!-- Site Content -->
@@ -58,21 +58,21 @@
             </div>
 
             <!-- Flash Messages Block -->
-            @include("System::partial.flash")
+            @include("cms::partial.flash")
 
             <!-- Page Content -->
             @section('filter')
-                @include("System::partial.filter")
+                @include("cms::partial.filter")
             @show
             @section('list')
-                @include("System::partial.list")
+                @include("cms::partial.list")
             @show
         </div>
     </div>
 </div>
 @if(!isset($is_iframe) || !$is_iframe)
         <!-- Site Footer -->
-@include('System::partial.footer')
+@include('cms::partial.footer')
 @endif
 </body>
 </html>

@@ -1,11 +1,11 @@
 @extends($layout)
 
 @section('page-header')
-    @include('System::partial.pageHeader')
+    @include('cms::partial.pageHeader')
 @stop
 
 @section('flash')
-    @include("System::partial.flash")
+    @include("cms::partial.flash")
 @stop
 
 @section('content')
