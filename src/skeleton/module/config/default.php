@@ -48,7 +48,7 @@ return [
              *  + App\Http\Modules\{ModuleName}\{ModuleName}Filter
              * If not found. System auto generate Form
              */
-            'filter_class'    => null,
+            'filter_class'   => null,
             /**
              * Filter config only in index
              * Override func: filter{FilterName} function
@@ -64,11 +64,11 @@ return [
              *      'params' => [] #ExtraParam for Form field type
              *  ]
              */
-            'filter'          => [],
+            'filter'         => [],
             /** Action to process filtering */
-            'filter_action'   => 'filter',
+            'filter_action'  => 'filter',
             /**  After filter, redirect to {ACTION} */
-            'filter_buttons'  => [
+            'filter_buttons' => [
                 'wrapper' => ['class' => 'form-group col-lg-12'],
                 'items'   => [
                     'Filter' => ['type' => 'submit', 'options' => ['attr' => ['class' => 'btn btn-primary', 'name' => '_btnFilter']]],
@@ -79,16 +79,16 @@ return [
              * With true => User must login to access
              * @var boolean
              */
-            'is_secure'       => true,
+            'is_secure'      => true,
             /**
              * Credentials for access to action
              * Format:
              *  + [A, B] #User must have the credential A and the credential B
              *  + [[A,B]] #User must have credential the A or the credential B
              */
-            'credentials'     => [],
+            'credentials'    => [],
             /** Model of controller. Default is name of controller */
-            'model'           => null,
+            'model'          => null,
             /**
              * Override from field config
              * Use only in index action. List column display in index page
@@ -101,17 +101,17 @@ return [
              *  + ~column_name #Using custom partial to render. Pass value of column to view if exists
              *  ]
              */
-            'list'            => [],
+            'list'           => [],
             /**
              * Use only in index action. List column hidden in index page
              */
-            'hidden'          => [],
+            'hidden'         => [],
             /**
              * Action for this item of object.
              * Detect in controller with suffix "ObjectAction"
              * Default include delete, show, edit
              */
-            'object_action'   => [
+            'object_action'  => [
                 'delete' => ['label' => 'Delete', 'class' => 'btn btn-danger'],
                 'show'   => ['label' => 'Show', 'class' => 'btn btn-primary'],
                 'edit'   => ['label' => 'Edit', 'class' => 'btn btn-success'],
@@ -120,26 +120,26 @@ return [
              * Batch action.
              * Detect in controller with suffix "BatchAction"
              */
-            'batch_action'    => [
+            'batch_action'   => [
                 'delete' => ['label' => 'Delete', 'credential' => [], 'class' => 'btn btn-danger'],
             ],
             /**
              * Action in index page.
              * Detect in controller with suffix "CommonAction"
              */
-            'action'          => [
+            'action'         => [
                 'add' => ['label' => 'Add', 'class' => 'btn btn-success'],
             ],
             /**
              * Limit record in page
              * Default: 5
              */
-            'max_per_page'    => 5,
+            'max_per_page'   => 5,
             /**
              * Order by field
              * Format: ['created_at:asc', 'updated_at:desc]
              */
-            'order_by'        => [],
+            'order_by'       => [],
             /**
              * Default view name for render
              * Format:
@@ -149,9 +149,9 @@ return [
              *  + javascript => [],
              *  + meta => []
              */
-            'view'            => [
+            'view'           => [
                 'name'      => 'index',
-                'namespace' => null,
+                'namespace' => 'cms',
             ],
             /**
              * Default layout for render
@@ -161,9 +161,9 @@ return [
              *      - With null => use module name
              *      - With '' => use global layout
              */
-            'layout'          => [
+            'layout'         => [
                 'name'      => 'layout',
-                'namespace' => null,
+                'namespace' => 'cms',
             ],
             /**
              * Add extension iframe(s) to this view
@@ -176,7 +176,7 @@ return [
              *    ]
              * ]
              */
-            'iframes'         => [
+            'iframes'        => [
 
             ],
         ],
@@ -222,7 +222,7 @@ return [
              */
             'view'        => [
                 'name'      => 'edit',
-                'namespace' => null,
+                'namespace' => 'cms',
             ],
             /**
              * Default layout for render
@@ -234,7 +234,7 @@ return [
              */
             'layout'      => [
                 'name'      => 'layout',
-                'namespace' => null,
+                'namespace' => 'cms',
             ],
         ],
         'show'        => [
@@ -258,7 +258,7 @@ return [
              */
             'view'   => [
                 'name'      => 'show',
-                'namespace' => null,
+                'namespace' => 'cms',
             ],
             /**
              * Default layout for render
@@ -270,7 +270,7 @@ return [
              */
             'layout' => [
                 'name'      => 'layout',
-                'namespace' => '',
+                'namespace' => 'cms',
             ],
         ],
         'create'      => [
@@ -297,7 +297,7 @@ return [
              */
             'view'   => [
                 'name'      => 'new',
-                'namespace' => null,
+                'namespace' => 'cms',
             ],
             /**
              * Default layout for render
@@ -309,7 +309,7 @@ return [
              */
             'layout' => [
                 'name'      => 'layout',
-                'namespace' => '',
+                'namespace' => 'cms',
             ],
 
         ],
