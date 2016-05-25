@@ -2,12 +2,13 @@
 namespace tuanlq11\cms\skeleton\module\base;
 
 
-use App\Models\User;
+use tuanlq11\cms\model\User;
 use Html, View, Config;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Str;
-use Input, URL;
+use Illuminate\Support\Facades\Input;
+use URL;
 
 /**
  * Created by Mr.Tuan.
