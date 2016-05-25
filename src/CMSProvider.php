@@ -138,7 +138,7 @@ class CMSProvider extends ServiceProvider
         }
 
         /** Route change language */
-        Route::get('/lang/switch', ['as' => 'switch_lang', 'middleware' => ['web', 'guest'], 'uses' => 'tuanlq11\cms\controller\LocaleController@switchLang']);
+        Route::get('/lang/switch', ['as' => 'switch_lang', 'middleware' => ['web'], 'uses' => 'tuanlq11\cms\controller\LocaleController@switchLang']);
         /** End */
     }
 
