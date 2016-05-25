@@ -44,17 +44,19 @@ class GeneratorCommand extends Command
             $this->error("Module is exist");
         }
 
-        foreach (['', '/configs', '/forms', '/filters', '/views'] as $sub) {
+        foreach (['', '/configs', '/forms', '/filters', '/views', '/models'] as $sub) {
             $this->file->makeDirectory($modulePath . $sub, 0777, true, true);
         }
 
         $actionContent = str_replace('{MODULE}', $moduleName, file_get_contents(__DIR__ . '/template/Actions.php.raw'));
         $formContent   = str_replace('{MODULE}', $moduleName, file_get_contents(__DIR__ . '/template/Form.php.raw'));
         $filterContent = str_replace('{MODULE}', $moduleName, file_get_contents(__DIR__ . '/template/Filter.php.raw'));
+        $modelContent  = str_replace('{MODULE}', $moduleName, file_get_contents(__DIR__ . '/template/Model.php.raw'));
 
         $this->file->put($modulePath . "/{$moduleName}Actions.php", $actionContent);
         $this->file->put($modulePath . "/forms/{$moduleName}Form.php", $formContent);
         $this->file->put($modulePath . "/filters/{$moduleName}Filter.php", $filterContent);
+        $this->file->put($modulePath . "/models/{$moduleName}.php", $modelContent);
 
         $this->file->copy(__DIR__ . "/../skeleton/module/config/default.php", $modulePath . "/configs/config.php");
     }

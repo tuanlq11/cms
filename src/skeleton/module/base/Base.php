@@ -130,7 +130,7 @@ class Base extends Controller
         $module_name = $this->getModuleName();
         if (is_null($this->model_name)) {
             $models = [
-                sprintf("App\\Http\\Modules\\{$module_name}\\model\\{$module_name}"),
+                sprintf("App\\Http\\Modules\\{$module_name}\\models\\{$module_name}"),
                 sprintf("App\\Model\\{$module_name}"),
                 sprintf("tuanlq11\\cms\\model\\{$module_name}"),
             ];
