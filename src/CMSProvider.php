@@ -95,14 +95,9 @@ class CMSProvider extends ServiceProvider
         if ($app instanceof \Illuminate\Foundation\Application && $app->runningInConsole()) {
             $migrationPath = realpath(__DIR__ . '/migration');
             $this->publishes([
-                $migrationPath => database_path('migrations'),
+                $migrationPath      => database_path('migrations'),
+                __DIR__ . "/module" => app_path('Http/Modules'),
             ]);
-
-            if (!(new Filesystem())->exists(app_path('Http/Modules/Authenticate'))) {
-                (new Filesystem())->makeDirectory(app_path('Http/Modules/Authenticate'), 0755, false, true);
-                /** Copy default Authenticate module */
-                $this->publishes([__DIR__ . "/module/Authenticate" => app_path('Http/Modules/Authenticate')]);
-            }
 
             if (!(new Filesystem())->exists(resource_path('cms'))) {
                 (new Filesystem())->makeDirectory(resource_path('cms'), 0755, false, true);
