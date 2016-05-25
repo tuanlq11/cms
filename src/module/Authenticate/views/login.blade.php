@@ -23,7 +23,7 @@
 </head>
 <body>
     <div id="wrapper" class="scrollbar-macosx">
-        @include('System::partial.header')
+        @include('cms::partial.header')
         <!-- Site Content -->
         <div id="page-wrapper" class="page-wrapper-scroll ">
             <div id="login-page">
@@ -40,7 +40,7 @@
                     <hr>
                     <?php echo csrf_field(); ?>
                     <!-- Flash Notice  -->
-                    @include('System::partial.flash')
+                    @include('cms::partial.flash')
                     <!-- Email field -->
                     <div class="form-group">
                         <label for="email">Email</label>
