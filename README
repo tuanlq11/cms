@@ -7,3 +7,10 @@
         Illuminate\Translation\TranslationServiceProvider::class => Waavi\Translation\TranslationServiceProvider::class
     Add to aliases:
         'FormBuilder' => Kris\LaravelFormBuilder\Facades\FormBuilder::class,
+
+run:
+    + php artisan vendor:publish
+    + npm i
+    + npm install gulp
+    + npm install jquery.scrollbar
+    + npm install jquery
