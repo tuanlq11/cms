@@ -97,6 +97,12 @@ trait Action
                 ->withSuccess("Create Success");
         }
 
+        if (isset($_REQUEST["_saveAndRedirect"])) {
+            return redirect()
+                ->to($this->getGeneratedUrl('index'))
+                ->withSuccess("Create Success");
+        }
+
         return redirect()
             ->to($this->getGeneratedUrl('edit', [$model->id]))
             ->withSuccess("Create Success");

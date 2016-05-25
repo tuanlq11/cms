@@ -57,6 +57,23 @@ trait SubAction
     }
 
     /**
+     * Save and redirect to list
+     *
+     * @param $form
+     * @param $config
+     */
+    protected function saveAndRedirectAction(&$form, $config)
+    {
+        $form->add('saveAndRedirect', 'submit', [
+            'label' => array_get($config, 'label', 'Save and Redirect'),
+            'attr'  => [
+                'name'  => "_saveAndRedirect",
+                'class' => array_get($config, 'class', 'btn btn-warning'),
+            ],
+        ]);
+    }
+
+    /**
      * @param $form
      * @param $config
      */
