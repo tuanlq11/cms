@@ -89,10 +89,11 @@ class CMSProvider extends ServiceProvider
     {
         if ($app instanceof \Illuminate\Foundation\Application && $app->runningInConsole()) {
             $migrationPath = realpath(__DIR__ . '/migration');
-            $this->publishes([$migrationPath => database_path('migrations')]);
-
-            /** Copy default Authenticate module */
-            $this->publishes(__DIR__ . "/console/template/Authenticate", app_path('Http/Modules') . "/");
+            $this->publishes([
+                $migrationPath                             => database_path('migrations'),
+                /** Copy default Authenticate module */
+                __DIR__ . "/console/template/Authenticate" => app_path('Http/Modules') . "/",
+            ]);
         }
     }
 
