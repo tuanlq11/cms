@@ -72,31 +72,38 @@ class CMSProvider extends ServiceProvider
         $this->replaceConfigFrom(__DIR__ . '/configs/form-builder.php', 'laravel-form-builder');
         $this->mergeConfigFrom(__DIR__ . '/configs/menu.php', 'core.menu');
 
-        Validator::extend('equal_field', "tuanlq11\\cms\\validator\\core@equal_field");
-        Validator::extend('arr_exists', "tuanlq11\\cms\\validator\\core@arr_exists");
+        /** Default Validator */
+        Validator::extend('equal_field', 'tuanlq11\\cms\\validator\\core@equal_field');
+        Validator::extend('arr_exists', 'tuanlq11\\cms\\validator\\core@arr_exists');
+        /** Default Validator */
 
+        /** Init Route config */
         $this->configRoute();
-        View::addNamespace("System", base_path() . "/core/bases/module/view");
 
-        /** Publish Migration */
-        $this->initMigration($this->app);
+        View::addNamespace("System", __DIR__ . '/skeleton/module/view');
+
+        /** Publish Migration, Authenticate, .. */
+        $this->initCMS($this->app);
     }
 
     /**
      * Copy migration to root project
      * @param Application $app
      */
-    private function initMigration(Application $app)
+    private function initCMS(Application $app)
     {
         (new Filesystem())->makeDirectory(app_path('Http/Modules/Authenticate'), 0755, false, true);
 
         if ($app instanceof \Illuminate\Foundation\Application && $app->runningInConsole()) {
             $migrationPath = realpath(__DIR__ . '/migration');
             $this->publishes([
-                $migrationPath                             => database_path('migrations'),
-                /** Copy default Authenticate module */
-                __DIR__ . "/module/Authenticate" => app_path('Http/Modules/Authenticate'),
+                $migrationPath => database_path('migrations'),
             ]);
+
+            if (!(new Filesystem())->exists(app_path('Http/Modules/Authenticate'))) {
+                /** Copy default Authenticate module */
+                $this->publishes([__DIR__ . "/module/Authenticate" => app_path('Http/Modules/Authenticate')]);
+            }
         }
     }
 
