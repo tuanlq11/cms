@@ -1,5 +1,4 @@
 <?php
-
 namespace tuanlq11\cms\skeleton\module\base;
 
 use Illuminate\Database\Eloquent\Model;
@@ -22,11 +21,9 @@ trait Action
     /**
      * List object items
      *
-     * @param $locale string
-     *
      * @return Response
      */
-    public function index($locale = 'en')
+    public function index()
     {
         $items = $this->pagination($this->buildQuery())->setPath($this->getGeneratedUrl('index'));
         $this->generateHTMLObjAction($items);
@@ -44,11 +41,10 @@ trait Action
      *
      * @param $obj     Model
      * @param $request Request
-     * @param $locale  string
      *
      * @return Response
      */
-    public function show(Request $request, $obj, $locale = 'en')
+    public function show(Request $request, $obj)
     {
         $form = $this->buildForm('show', 'show', $obj);
 
@@ -58,11 +54,9 @@ trait Action
     /**
      * Create new object
      *
-     * @param $locale string
-     *
      * @return  Response
      */
-    public function create($locale = 'en')
+    public function create()
     {
         $this->buildForm('create', 'store');
         if (Session::has('form')) {
@@ -76,11 +70,9 @@ trait Action
     /**
      * Create new object
      *
-     * @param $locale string
-     *
      * @return  Response
      */
-    public function store($locale = 'en')
+    public function store()
     {
         $this->buildForm('create', 'store');
         $data = Input::get('create');
@@ -112,12 +104,11 @@ trait Action
     /**
      * Edit page for edit item
      *
-     * @param $locale string
      * @param $obj    mixed
      *
      * @return Response
      */
-    public function edit($obj, $locale = 'en')
+    public function edit($obj)
     {
         $this->buildForm('edit', 'update', $obj);
         if (Session::has('form')) {
@@ -132,11 +123,10 @@ trait Action
      * Update exists item
      *
      * @param  $obj    Model
-     * @param  $locale string
      *
      * @return Response
      */
-    public function update($obj, $locale = 'en')
+    public function update($obj)
     {
         if (isset($_REQUEST["_delete"])) {
             $obj->delete();
@@ -168,11 +158,10 @@ trait Action
      * Delete item
      *
      * @param $obj    Model
-     * @param $locale string
      *
      * @return Response
      */
-    public function destroy($obj, $locale = 'en')
+    public function destroy($obj)
     {
         if (empty($obj)) return redirect($this->getGeneratedUrl('index'))->with('Message', trans('delete.notexists'));
 
@@ -184,11 +173,9 @@ trait Action
     /**
      * Filter item in list
      *
-     * @param $locale string
-     *
      * @return Response
      */
-    public function filter($locale = 'en')
+    public function filter()
     {
         Route::dispatchToRoute(Request::create(URL::previous()));
         $previousAction = $this->getCurrentAction();
