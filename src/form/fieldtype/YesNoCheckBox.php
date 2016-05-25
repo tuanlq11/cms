@@ -1,5 +1,5 @@
 <?php
-namespace Core\Bases\FieldType;
+namespace tuanlq11\cms\form\fieldtype;
 
 use Illuminate\Support\Str;
 use Kris\LaravelFormBuilder\Fields\CheckableType;

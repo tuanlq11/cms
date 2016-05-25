@@ -1,5 +1,5 @@
 <?php
-namespace Core\Bases\FieldType;
+namespace tuanlq11\cms\form\fieldtype;
 
 use Illuminate\Database\Eloquent\Model;
 use Kris\LaravelFormBuilder\Fields\ChoiceType;

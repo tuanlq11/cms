@@ -13,7 +13,7 @@ trait Language
      */
     public function supportedLang()
     {
-        $data = \Core\Bases\Module\Model\Language::all()->toArray();
+        $data = \tuanlq11\cms\model\Language::all()->toArray();
         return array_pluck($data, 'name', 'locale');
     }
 }

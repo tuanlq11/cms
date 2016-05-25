@@ -21,15 +21,15 @@ class CMSProvider extends ServiceProvider
      * Default route each module.
      */
     protected $defaultRoutes = [
-        'index'       => ['uses' => 'index', 'middleware' => null, 'url' => "{AUTO}", 'method' => 'get'],
-        'filter'      => ['uses' => 'filter', 'middleware' => null, 'url' => "{AUTO}", 'method' => 'post'],
-        'edit'        => ['uses' => 'edit', 'middleware' => null, 'url' => "{AUTO}", 'method' => 'get'],
-        'update'      => ['uses' => 'update', 'middleware' => null, 'url' => "{AUTO}", 'method' => 'post'],
-        'show'        => ['uses' => 'show', 'middleware' => null, 'url' => "{AUTO}", 'method' => 'get'],
-        'destroy'     => ['uses' => 'destroy', 'middleware' => null, 'url' => "{AUTO}", 'method' => 'post'],
-        'create'      => ['uses' => 'create', 'middleware' => null, 'url' => "{AUTO}", 'method' => 'get'],
-        'store'       => ['uses' => 'store', 'middleware' => null, 'url' => "{AUTO}", 'method' => 'post'],
-        'batchAction' => ['uses' => 'batchAction', 'middleware' => null, 'url' => "{AUTO}", 'method' => 'post'],
+        'index'       => ['uses' => 'index', 'middleware' => 'web', 'url' => "{AUTO}", 'method' => 'get'],
+        'filter'      => ['uses' => 'filter', 'middleware' => 'web', 'url' => "{AUTO}", 'method' => 'post'],
+        'edit'        => ['uses' => 'edit', 'middleware' => 'web', 'url' => "{AUTO}", 'method' => 'get'],
+        'update'      => ['uses' => 'update', 'middleware' => 'web', 'url' => "{AUTO}", 'method' => 'post'],
+        'show'        => ['uses' => 'show', 'middleware' => 'web', 'url' => "{AUTO}", 'method' => 'get'],
+        'destroy'     => ['uses' => 'destroy', 'middleware' => 'web', 'url' => "{AUTO}", 'method' => 'post'],
+        'create'      => ['uses' => 'create', 'middleware' => 'web', 'url' => "{AUTO}", 'method' => 'get'],
+        'store'       => ['uses' => 'store', 'middleware' => 'web', 'url' => "{AUTO}", 'method' => 'post'],
+        'batchAction' => ['uses' => 'batchAction', 'middleware' => 'web', 'url' => "{AUTO}", 'method' => 'post'],
     ];
 
     /**
@@ -124,25 +124,23 @@ class CMSProvider extends ServiceProvider
                 /** Get middleware config */
                 $middleware = array_get($route, 'middleware', null);
 
-                Route::group(['middleware' => ['web']], function () use ($method, $url, $controllerMethod, $middleware, $module_name, $as) {
-                    Route::$method($url, ['uses' => $controllerMethod, 'as' => $as, 'middleware' => $middleware]);
-                    Route::bind(strtolower($module_name), function ($value) use ($module_name) {
-                        $model_class = "App\\Models\\{$module_name}";
-                        $locale      = Session::get('language', 'en');
-                        if (!class_exists($model_class)) return $value;
-                        /** @var Model $model */
-                        $model   = new $model_class();
-                        $is_i18n = method_exists($model, 'saveI18N');
-                        /** @var Builder $query */
-                        $query = $is_i18n ? $model_class::I18N($locale) : $model_class::query();
+                Route::$method($url, ['uses' => $controllerMethod, 'as' => $as, 'middleware' => $middleware]);
+                Route::bind(strtolower($module_name), function ($value) use ($module_name) {
+                    $model_class = "App\\Models\\{$module_name}";
+                    $locale      = Session::get('language', 'en');
+                    if (!class_exists($model_class)) return $value;
+                    /** @var Model $model */
+                    $model   = new $model_class();
+                    $is_i18n = method_exists($model, 'saveI18N');
+                    /** @var Builder $query */
+                    $query = $is_i18n ? $model_class::I18N($locale) : $model_class::query();
 
-                        if ($is_i18n) $query->select(\DB::raw("i18n.*,{$model->getTable()}.*"));
+                    if ($is_i18n) $query->select(\DB::raw("i18n.*,{$model->getTable()}.*"));
 
-                        $obj = $query->find($value);
-                        if (!$obj) abort(404, 'Data not found');
+                    $obj = $query->find($value);
+                    if (!$obj) abort(404, 'Data not found');
 
-                        return $obj;
-                    });
+                    return $obj;
                 });
             }
         }

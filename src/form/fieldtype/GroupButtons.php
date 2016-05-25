@@ -1,6 +1,6 @@
 <?php
 
-namespace Core\Bases\FieldType;
+namespace tuanlq11\cms\form\fieldtype;
 
 use Kris\LaravelFormBuilder\Fields\FormField;
 use Kris\LaravelFormBuilder\Form;
