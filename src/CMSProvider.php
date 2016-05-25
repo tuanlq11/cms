@@ -95,6 +95,7 @@ class CMSProvider extends ServiceProvider
     {
         if ($app instanceof \Illuminate\Foundation\Application && $app->runningInConsole()) {
             $migrationPath = realpath(__DIR__ . '/migration');
+            (new Filesystem())->makeDirectory(app_path('Models'), 0755, false, true);
             $this->publishes([
                 $migrationPath        => database_path('migrations'),
                 __DIR__ . "/module"   => app_path('Http/Modules'),
