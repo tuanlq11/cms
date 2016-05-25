@@ -82,10 +82,12 @@ class Base extends Controller
      */
     public function getCurrentAction()
     {
-        $currentNameSpace = Route::currentRouteAction();
-        $action           = explode('@', $currentNameSpace)[1];
+        if (!$this->action) {
+            $currentNameSpace = Route::currentRouteAction();
+            $this->action     = explode('@', $currentNameSpace)[1];
+        }
 
-        return $action;
+        return $this->action;
     }
 
     /**
