@@ -16,7 +16,7 @@ class Link extends FormField
      */
     protected function getTemplate()
     {
-        return 'System::field.link';
+        return 'cms::field.link';
     }
 
     /**
