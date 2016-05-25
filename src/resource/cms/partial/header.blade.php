@@ -16,7 +16,7 @@
         <div class="language-box">
             <?php
             $supportedLang = $controller->supportedLang();
-            $currentLocale = $app['config']->get('app.locale');
+            $currentLocale = $controller->getCurrentLocale();
             $currentLang = array_get($supportedLang, $currentLocale, 'English');
             ?>
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
