@@ -5,6 +5,7 @@ namespace tuanlq11\cms\validator;
  * Created by Fallen
  */
 use DB;
+use Illuminate\Support\Facades\Input;
 
 class core
 {
@@ -20,7 +21,7 @@ class core
      */
     public function equal_field($attribute, $value, $parameters, $validator)
     {
-        return isset($value) && \Input::get($parameters[0]) == $value;
+        return isset($value) && Input::get($parameters[0]) == $value;
     }
 
     /**
