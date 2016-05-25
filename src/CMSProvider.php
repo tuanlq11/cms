@@ -153,7 +153,7 @@ class CMSProvider extends ServiceProvider
     protected function generateURL($action, $module_name)
     {
         $defaultUrl = array_get($this->defaultUrl, $action, '');
-        $url        = str_replace('{PREFIX}', sprintf(' /%s', strtolower($module_name)), $defaultUrl);
+        $url        = str_replace('{PREFIX}', sprintf('/%s', strtolower($module_name)), $defaultUrl);
         $url        = str_replace('{MODULENAME}', strtolower($module_name), $url);
         $url        = str_replace('{ACTION}', strtolower($action), $url);
 
@@ -175,7 +175,7 @@ class CMSProvider extends ServiceProvider
             }
 
             try {
-                $routes = include($module_path . "/configs/route.php");
+                $routes = include($module_path . '/configs/route.php');
             } catch (\Exception $ex) {
                 $routes = [];
             }
