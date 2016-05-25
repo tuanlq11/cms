@@ -4,24 +4,23 @@ namespace tuanlq11\cms\skeleton\module\base;
 use App\Http\Controllers\Controller;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
-use Route, Session, Request;
+use Route, Session, Request, Config;
 
 /**
- * Created by Mr.Tuan.
- * User: tuanlq
- * Date: 1/14/16
- * Time: 10:15 AM
+ * Created by Fallen
  */
 class Base extends Controller
 {
     /**
      * Path to module
+     *
      * @var string
      */
     protected $module_path = 'app/Http/Modules/{ModuleName}/';
 
     /**
      * List rule default. Use to map from rule to query method
+     *
      * @var array
      */
     protected $ruleDefault = [
@@ -33,6 +32,7 @@ class Base extends Controller
 
     /**
      * Map table from rule to query method
+     *
      * @var array
      */
     protected $ruleToMethod = [
@@ -45,18 +45,21 @@ class Base extends Controller
     /**
      * Module name
      * Use for default model name
+     *
      * @var string
      */
     protected $module_name;
 
     /**
      * Model name for query
+     *
      * @var string
      */
     protected $model_name;
 
     /**
      * Current Action
+     *
      * @var string
      */
     protected $action;
@@ -74,6 +77,7 @@ class Base extends Controller
 
     /**
      * Return current action function
+     *
      * @return string
      */
     public function getCurrentAction()
@@ -86,6 +90,7 @@ class Base extends Controller
 
     /**
      * Return module view path
+     *
      * @return string
      */
     public function getModuleViewPath()
@@ -131,6 +136,7 @@ class Base extends Controller
             foreach ($models as $model_class) {
                 if (class_exists($model_class)) {
                     $this->model_name = $model_class;
+
                     return $this->model_name;
                 }
             }
@@ -170,6 +176,7 @@ class Base extends Controller
 
     /**
      * Return environment
+     *
      * @return mixed
      */
     public function getEnv()
@@ -188,6 +195,7 @@ class Base extends Controller
     {
         $routeName = $this->getGeneratedRoute($action);
         $url       = route($routeName, $params, $absolute);
+
         return $url;
     }
 
@@ -216,17 +224,21 @@ class Base extends Controller
         $credentials = $this->getConfig('credentials', $action);
         if ($rules === ['*'] || $credentials === ['*']) return true;
         $matchRules = array_intersect($credentials, array_values($rules));
+
         return !empty($matchRules);
     }
 
     /**
      * Get previous url
+     *
      * @param $action string
+     *
      * @return string
      */
     public function getPreviousUrl($action)
     {
         $key = sprintf('log.previous.url.%s', $action);
+
         return Session::get($key);
     }
 
@@ -248,10 +260,12 @@ class Base extends Controller
             $input = '[' . trim($input, '[]') . ']';
             $input = preg_replace_callback($regex, function ($str) {
                 $str = ((array)$str);
+
                 return trim($str[0], '[]') . ".";
             }, $input);
             $input = trim($input, '.');
         }
+
         return $input;
     }
 
@@ -260,6 +274,6 @@ class Base extends Controller
      */
     public function getCurrentLocale()
     {
-        return \Config::get('app.locale');
+        return Session::get('cms.locale', Config::get('app.locale', 'en'));
     }
 }

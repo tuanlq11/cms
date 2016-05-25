@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Input;
-use Schema;
+use Schema, DB;
 
 /**
  * Class Query
@@ -14,6 +14,7 @@ use Schema;
  * @method void applyFilter(Builder &$query)
  * @method string getModuleName()
  * @method string getModelName()
+ *
  * @property string action
  * @package Core\Bases\Module\Base
  */
@@ -27,6 +28,7 @@ trait Query
 
     /**
      * Get Model object
+     *
      * @return Model
      */
     protected function getModel()
@@ -41,6 +43,33 @@ trait Query
         }
 
         return $this->model;
+    }
+
+    /**
+     * Load object model from url pattern
+     *
+     * @param $val string|integer
+     *
+     * @return mixed
+     */
+    protected function loadBindingModel($val)
+    {
+        $model_class = $this->getModelName();
+        $locale      = $this->getCurrentLocale();
+
+        if (!$model_class) return null;
+
+        /** @var Model $model */
+        $model   = new $model_class();
+        $is_i18n = method_exists($model, 'saveI18N');
+        /** @var Builder $query */
+        $query = $is_i18n ? $model_class::I18N($locale) : $model_class::query();
+
+        if ($is_i18n) $query->select(DB::raw("i18n.*,{$model->getTable()}.*"));
+
+        $obj = $query->find($val);
+
+        return $obj;
     }
 
     /**
@@ -108,12 +137,14 @@ trait Query
         $page   = is_null($page) ? Input::get('page') : $page;
 
         $max_per_page = $this->getConfig($action)['max_per_page'];
+
         return $query->paginate($max_per_page, ['*'], 'page', $page);
     }
 
     /**
      * Create new object.
-     * @var $obj Model
+     *
+     * @var $obj  Model
      * @var $data array
      *
      * @return Model
@@ -132,8 +163,9 @@ trait Query
 
     /**
      * Apply data to object
-     * @var $obj Model
-     * @var $key string
+     *
+     * @var $obj   Model
+     * @var $key   string
      * @var $value string
      *
      * @return mixed

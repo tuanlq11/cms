@@ -5,10 +5,7 @@ use Config, Input, Validator, Session, App, Response, URL, Redirect;
 use tuanlq11\cms\model\Language;
 
 /**
- * Created by Mr.Tuan.
- * User: tuanlq
- * Date: 3/23/16
- * Time: 7:35 AM
+ * Created by Fallen
  */
 class LocaleController extends \App\Http\Controllers\Controller
 {
@@ -29,7 +26,7 @@ class LocaleController extends \App\Http\Controllers\Controller
             abort(404, "Language is not supported");
         }
 
-        Session::put('language', $params['locale']);
+        Session::put('cms.locale', $params['locale']);
         App::setLocale($params['locale']);
 
         return Redirect::back();

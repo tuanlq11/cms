@@ -5,10 +5,11 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Input;
-use URL, Route, Response, View, Redirect, Session, Request;
+use URL, Route, Response, Session, Request;
 
 /**
- * User: Mr.Tuan
+ * User: Fallen
+ *
  * @method  \Illuminate\Database\Eloquent\Builder buildQuery()
  * @method LengthAwarePaginator pagination(Builder $query, $page = null)
  * @method void clearFilter()
@@ -110,6 +111,10 @@ trait Action
      */
     public function edit($obj)
     {
+        if (!$obj = $this->loadBindingModel($obj)) {
+            abort(404, trans('cms.not_found_object'));
+        }
+
         $this->buildForm('edit', 'update', $obj);
         if (Session::has('form')) {
             $this->setFormData(Session::get('form'));

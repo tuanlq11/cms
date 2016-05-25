@@ -88,6 +88,7 @@ class CMSProvider extends ServiceProvider
 
     /**
      * Copy migration to root project
+     *
      * @param Application $app
      */
     private function initCMS(Application $app)
@@ -133,6 +134,11 @@ class CMSProvider extends ServiceProvider
                 $middleware = array_get($route, 'middleware', null);
 
                 Route::$method($url, ['uses' => $controllerMethod, 'as' => $as, 'middleware' => $middleware]);
+                /* Apply locale in url to session */
+                Route::bind('locale', function ($locale) {
+                    Session::put('cms.url-locale', $locale);
+                });
+
 //                Route::bind(strtolower($module_name), function ($value) use ($module_name) {
 //                    $model_class = "App\\Models\\{$module_name}";
 //                    $locale      = Session::get('language', 'en');
