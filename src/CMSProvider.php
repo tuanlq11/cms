@@ -83,7 +83,7 @@ class CMSProvider extends ServiceProvider
         /** Init Route config */
         $this->configRoute();
 
-        View::addNamespace("System", resource_path('cms'));
+        View::addNamespace("cms", resource_path('cms'));
     }
 
     /**
