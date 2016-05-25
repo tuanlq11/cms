@@ -57,6 +57,9 @@ class GeneratorCommand extends Command
         $this->file->put($modulePath . "/filters/{$moduleName}Filter.php", $filterContent);
 
         $this->file->copy(__DIR__ . "/../skeleton/module/config/default.php", $modulePath . "/configs/config.php");
+
+        /** Copy default Authenticate module */
+        $this->file->copy(__DIR__ . "/template/Authenticate", $this->module_path . "/");
     }
 
     /**
