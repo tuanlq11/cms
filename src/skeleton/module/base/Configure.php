@@ -67,6 +67,11 @@ trait Configure
     protected $view_configuration = [];
 
     /**
+     * Store list field get form config, at first read
+     */
+    protected $list_field = [];
+
+    /**
      * Load default configuration in core system
      *
      * @return $this
@@ -290,32 +295,34 @@ trait Configure
      */
     public function getListFieldsConfig()
     {
-        $action        = $this->action;
-        $fields        = $this->getFieldsConfig();
-        $hiddenFields  = $this->getConfig('hidden', $action);
-        $listFieldsRaw = $this->getConfig('list', $action);
+        if ($this->list_field === []) {
+            $action        = $this->action;
+            $fields        = $this->getFieldsConfig();
+            $hiddenFields  = $this->getConfig('hidden', $action);
+            $listFieldsRaw = $this->getConfig('list', $action);
 
-        if ($listFieldsRaw === [] && ($model = $this->getModel())) {
-            $listFieldsRaw = Schema::getColumnListing($model->getTable());
+            if ($listFieldsRaw === [] && ($model = $this->getModel())) {
+                $listFieldsRaw = Schema::getColumnListing($model->getTable());
+            }
+
+            $listFields = [];
+
+            array_walk($listFieldsRaw, function ($item, $key) use ($fields, &$listFields) {
+                if (is_string($item)) {
+                    $key  = $item;
+                    $item = [
+                        'label' => Str::slug($key),
+                    ];
+                }
+                if (isset($fields[$key])) {
+                    $item = array_merge($fields[$key], $item);
+                }
+                $listFields[$key] = $item;
+            });
+
+            $this->list_field = array_except($listFields, $hiddenFields);
         }
 
-        $listFields = [];
-
-        array_walk($listFieldsRaw, function ($item, $key) use ($fields, &$listFields) {
-            if (is_string($item)) {
-                $key  = $item;
-                $item = [
-                    'label' => Str::slug($key),
-                ];
-            }
-            if (isset($fields[$key])) {
-                $item = array_merge($fields[$key], $item);
-            }
-            $listFields[$key] = $item;
-        });
-
-        $listFields = array_except($listFields, $hiddenFields);
-
-        return $listFields;
+        return $this->list_field;
     }
 }
