@@ -100,9 +100,10 @@ class CMSProvider extends ServiceProvider
             ]);
 
             if (!(new Filesystem())->exists(resource_path('cms'))) {
-                (new Filesystem())->makeDirectory(resource_path('cms'), 0755, false, true);
-                /** Copy view resources */
-                $this->publishes([__DIR__ . "/skeleton/module/view" => resource_path('cms')]);
+                if ((new Filesystem())->makeDirectory(resource_path('cms'), 0755, false, true)) {
+                    /** Copy view resources */
+                    $this->publishes([__DIR__ . "/skeleton/module/view" => resource_path('cms')]);
+                }
             }
         }
     }
