@@ -61,7 +61,7 @@ class User extends Model implements AuthenticatableContract,
      */
     public function roles()
     {
-        return $this->belongsToMany('tuanlq11\model\Role', 'role_user_relation', 'user_id', 'role_id');
+        return $this->belongsToMany('tuanlq11\cms\model\Role', 'role_user_relation', 'user_id', 'role_id');
     }
 
     /**
@@ -69,7 +69,7 @@ class User extends Model implements AuthenticatableContract,
      */
     public function groups()
     {
-        return $this->belongsToMany('tuanlq11\model\Group', 'user_group_relation', 'user_id', 'group_id');
+        return $this->belongsToMany('tuanlq11\cms\model\Group', 'user_group_relation', 'user_id', 'group_id');
     }
 
     /**

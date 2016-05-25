@@ -5,7 +5,8 @@ namespace tuanlq11\cms\skeleton\module\base;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Pagination\LengthAwarePaginator;
-use Input, Schema;
+use Illuminate\Support\Facades\Input;
+use Schema;
 
 /**
  * Class Query
