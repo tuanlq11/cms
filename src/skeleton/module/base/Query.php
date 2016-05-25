@@ -56,16 +56,16 @@ trait Query
         $fieldsKey    = array_keys($fieldsConfig);
         $order_by     = $this->getConfig("{$action}.order_by");
 
-        $modelName = $this->getModelName();
-        if (!class_exists($modelName)) {
+        $model_class = $this->getModelName();
+        if (!$model_class) {
             $message = env('APP_DEBUG') ? "Not found model provider for module!" : "";
             abort(404, $message);
         }
 
-        $is_i18n = method_exists($modelName, 'saveI18N');
-                /** @var Builder $query */
-        $query     = $is_i18n ? $modelName::I18N($this->getCurrentLocale()) : $modelName::query();
-        $tableName = (new $modelName())->getTable();
+        $is_i18n = method_exists($model_class, 'saveI18N');
+        /** @var Builder $query */
+        $query     = $is_i18n ? $model_class::I18N($this->getCurrentLocale()) : $model_class::query();
+        $tableName = (new $model_class())->getTable();
         // $primary   = (array)(new $modelName)->getKeyName();
 
         $availableField = Schema::getColumnListing($tableName);

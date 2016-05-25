@@ -120,7 +120,25 @@ class Base extends Controller
      */
     public function getModelName()
     {
-        return is_null($this->model_name) ? "App\\Models\\" . $this->getModuleName() : $this->model_name;
+        $module_name = $this->getModuleName();
+        if (is_null($this->model_name)) {
+            $models = [
+                sprintf("App\\Http\\Module\\{$module_name}\\Model\\{$module_name}"),
+                sprintf("App\\Model\\{$module_name}"),
+                sprintf("tuanlq11\\cms\\model\\{$module_name}"),
+            ];
+
+            foreach ($models as $model_class) {
+                if (class_exists($model_class)) {
+                    $this->model_name = $model_class;
+                    return $this->model_name;
+                }
+            }
+
+            return null;
+        } else {
+            return $this->model_name;
+        }
     }
 
     /**
