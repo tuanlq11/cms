@@ -134,28 +134,6 @@ class CMSProvider extends ServiceProvider
                 $middleware = array_get($route, 'middleware', null);
 
                 Route::$method($url, ['uses' => $controllerMethod, 'as' => $as, 'middleware' => $middleware]);
-                /* Apply locale in url to session */
-                Route::bind('locale', function ($locale) {
-                    Session::put('cms.url-locale', $locale);
-                });
-
-//                Route::bind(strtolower($module_name), function ($value) use ($module_name) {
-//                    $model_class = "App\\Models\\{$module_name}";
-//                    $locale      = Session::get('language', 'en');
-//                    if (!class_exists($model_class)) return $value;
-//                    /** @var Model $model */
-//                    $model   = new $model_class();
-//                    $is_i18n = method_exists($model, 'saveI18N');
-//                    /** @var Builder $query */
-//                    $query = $is_i18n ? $model_class::I18N($locale) : $model_class::query();
-//
-//                    if ($is_i18n) $query->select(\DB::raw("i18n.*,{$model->getTable()}.*"));
-//
-//                    $obj = $query->find($value);
-//                    if (!$obj) abort(404, 'Data not found');
-//
-//                    return $obj;
-//                });
             }
         }
 
@@ -175,12 +153,9 @@ class CMSProvider extends ServiceProvider
     protected function generateURL($action, $module_name)
     {
         $defaultUrl = array_get($this->defaultUrl, $action, '');
-        $url        = str_replace('{
-        PREFIX}', sprintf(' /%s', strtolower($module_name)), $defaultUrl);
-        $url        = str_replace('{
-        MODULENAME}', strtolower($module_name), $url);
-        $url        = str_replace('{
-        ACTION}', strtolower($action), $url);
+        $url        = str_replace('{PREFIX}', sprintf(' /%s', strtolower($module_name)), $defaultUrl);
+        $url        = str_replace('{MODULENAME}', strtolower($module_name), $url);
+        $url        = str_replace('{ACTION}', strtolower($action), $url);
 
         return $url;
     }
@@ -191,7 +166,7 @@ class CMSProvider extends ServiceProvider
     protected function getListModules()
     {
         $result  = [];
-        $modules = array_filter(glob(base_path() . ' / app / Http / Modules/*'), 'is_dir');
+        $modules = array_filter(glob(base_path() . '/app/Http/Modules/*'), 'is_dir');
         foreach ($modules as $module_path) {
             $moduleName = basename($module_path);
 
