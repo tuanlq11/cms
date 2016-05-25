@@ -23,9 +23,9 @@
 <div id="wrapper" class="scrollbar-macosx">
     @if(!isset($is_iframe) || !$is_iframe)
             <!-- Site Header -->
-    @include('System::partial.header')
+    @include('cms::partial.header')
             <!-- Site Navigation -->
-    @include('System::partial.navigation')
+    @include('cms::partial.navigation')
     @endif
 
             <!-- Site Content -->
@@ -44,7 +44,7 @@
 </div>
 @if(!isset($is_iframe) || !$is_iframe)
         <!-- Site Footer -->
-@include('System::partial.footer')
+@include('cms::partial.footer')
 @endif
 </body>
 </html>
