@@ -75,7 +75,7 @@ trait Render
 
         $namespace = $config['namespace'];
         $namespace = is_null($namespace) ?
-            "System::" :
+            "cms::" :
             (strlen($namespace) == 0 ? '' : $namespace . "::");
 
         return sprintf("%s%s", $namespace, $config['name']);
