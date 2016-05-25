@@ -70,8 +70,9 @@ class BaseActions extends Base
         /** End */
 
         /** Core Middleware */
-        $middleware = sprintf('\Core\Bases\Middleware\Gateway:%s', $this->getModuleName());
+        $middleware = sprintf('\tuanlq11\cms\middleware\Gateway:%s', $this->getModuleName());
         $this->middleware($middleware);
+
         /** Load module configuration */
         $this->initConfiguration();
 
