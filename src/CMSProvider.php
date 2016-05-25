@@ -82,6 +82,8 @@ class CMSProvider extends ServiceProvider
 
         /** Init Route config */
         $this->configRoute();
+
+        View::addNamespace("System", resource_path('cms'));
     }
 
     /**
@@ -102,10 +104,10 @@ class CMSProvider extends ServiceProvider
                 $this->publishes([__DIR__ . "/module/Authenticate" => app_path('Http/Modules/Authenticate')]);
             }
 
-            if (!(new Filesystem())->exists(resource_path('views/cms'))) {
-                (new Filesystem())->makeDirectory(resource_path('views/cms'), 0755, false, true);
+            if (!(new Filesystem())->exists(resource_path('cms'))) {
+                (new Filesystem())->makeDirectory(resource_path('cms'), 0755, false, true);
                 /** Copy view resources */
-                $this->publishes([__DIR__ . "/skeleton/module/view" => resource_path('views/cms')]);
+                $this->publishes([__DIR__ . "/skeleton/module/view" => resource_path('cms')]);
             }
         }
     }
