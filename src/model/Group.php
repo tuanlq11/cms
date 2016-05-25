@@ -50,7 +50,7 @@ class Group extends Model
      */
     public function roles()
     {
-        return $this->belongsToMany('tuanlq11\model\Role', 'role_group_relation', 'group_id', 'role_id');
+        return $this->belongsToMany('tuanlq11\cms\model\Role', 'role_group_relation', 'group_id', 'role_id');
     }
 
     /**
@@ -58,12 +58,12 @@ class Group extends Model
      */
     public function users()
     {
-        return $this->hasMany('tuanlq11\model\User', 'user_group_relation', 'user_id', 'group_id');
+        return $this->hasMany('tuanlq11\cms\model\User', 'user_group_relation', 'user_id', 'group_id');
     }
 
     public function groupTranslations()
     {
-        return $this->hasMany('tuanlq11\model\GroupI18N', 'groups_i18n', 'user_id', 'group_id');
+        return $this->hasMany('tuanlq11\cms\model\GroupI18N', 'groups_i18n', 'user_id', 'group_id');
     }
 
     /**
@@ -72,6 +72,7 @@ class Group extends Model
     public function getRole()
     {
         $result = $this->roles()->get(['id'])->toArray();
+
         return array_pluck($result, 'id');
     }
 
