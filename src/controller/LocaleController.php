@@ -1,13 +1,14 @@
 <?php
 namespace tuanlq11\cms\controller;
 
-use Config, Input, Validator, Session, App, Response, URL, Redirect;
+use Config, Validator, Session, App, Response, URL, Redirect;
+use Illuminate\Support\Facades\Input;
 use tuanlq11\cms\model\Language;
 
 /**
  * Created by Fallen
  */
-class LocaleController extends \App\Http\Controllers\Controller
+class LocaleController extends Controller
 {
     public function switchLang()
     {

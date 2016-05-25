@@ -1,7 +1,7 @@
 <?php
 namespace tuanlq11\cms\skeleton\module\base;
 
-use App\Http\Controllers\Controller;
+use tuanlq11\cms\controller\Controller;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 use Route, Session, Request, Config;
