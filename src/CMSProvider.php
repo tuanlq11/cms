@@ -67,6 +67,9 @@ class CMSProvider extends ServiceProvider
      */
     public function boot()
     {
+        /** Publish Migration, Authenticate, .. */
+        $this->initCMS($this->app);
+
         /** Merge core config */
         $this->mergeConfigFrom(__DIR__ . '/configs/config.php', 'core');
         $this->replaceConfigFrom(__DIR__ . '/configs/form-builder.php', 'laravel-form-builder');
@@ -81,9 +84,6 @@ class CMSProvider extends ServiceProvider
         $this->configRoute();
 
         View::addNamespace("System", __DIR__ . '/skeleton/module/view');
-
-        /** Publish Migration, Authenticate, .. */
-        $this->initCMS($this->app);
     }
 
     /**
@@ -92,8 +92,6 @@ class CMSProvider extends ServiceProvider
      */
     private function initCMS(Application $app)
     {
-        (new Filesystem())->makeDirectory(app_path('Http/Modules/Authenticate'), 0755, false, true);
-
         if ($app instanceof \Illuminate\Foundation\Application && $app->runningInConsole()) {
             $migrationPath = realpath(__DIR__ . '/migration');
             $this->publishes([
@@ -101,8 +99,15 @@ class CMSProvider extends ServiceProvider
             ]);
 
             if (!(new Filesystem())->exists(app_path('Http/Modules/Authenticate'))) {
+                (new Filesystem())->makeDirectory(app_path('Http/Modules/Authenticate'), 0755, false, true);
                 /** Copy default Authenticate module */
                 $this->publishes([__DIR__ . "/module/Authenticate" => app_path('Http/Modules/Authenticate')]);
+            }
+
+            if (!(new Filesystem())->exists(resource_path('view/cms'))) {
+                (new Filesystem())->makeDirectory(resource_path('view/cms'), 0755, false, true);
+                /** Copy view resources */
+                $this->publishes([__DIR__ . "/skeleton/module/view" => resource_path('view/cms')]);
             }
         }
     }
