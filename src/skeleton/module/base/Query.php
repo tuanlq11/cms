@@ -172,6 +172,6 @@ trait Query
      */
     protected function applyData(&$obj, $key, $value)
     {
-        if (isset($this->getListFieldsConfig()[$key])) $obj->$key = $value;
+        if (isset($this->getFieldsConfig($this->getCurrentAction())[$key])) $obj->$key = $value;
     }
 }
