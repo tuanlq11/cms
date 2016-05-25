@@ -71,9 +71,9 @@ class CMSProvider extends ServiceProvider
         $this->initCMS($this->app);
 
         /** Merge core config */
-        $this->mergeConfigFrom(__DIR__ . '/configs/config.php', 'core');
+        $this->mergeConfigFrom(__DIR__ . '/configs/config.php', 'cms');
         $this->replaceConfigFrom(__DIR__ . '/configs/form-builder.php', 'laravel-form-builder');
-        $this->mergeConfigFrom(__DIR__ . '/configs/menu.php', 'core.menu');
+        $this->mergeConfigFrom(__DIR__ . '/configs/menu.php', 'cms.menu');
 
         /** Default Validator */
         Validator::extend('equal_field', 'tuanlq11\\cms\\validator\\core@equal_field');
@@ -99,7 +99,7 @@ class CMSProvider extends ServiceProvider
                 __DIR__ . "/module"   => app_path('Http/Modules'),
                 __DIR__ . "/resource" => resource_path(),
                 __DIR__ . "/gulp"     => base_path(),
-                __DIR__ . "/configs"  => config_path('core'),
+                __DIR__ . "/configs"  => config_path('cms'),
             ]);
         }
     }

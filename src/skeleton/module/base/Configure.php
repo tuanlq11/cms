@@ -139,8 +139,8 @@ trait Configure
      */
     protected function loadCoreConfig()
     {
-        $allModule  = Config::get('core.module.all', []);
-        $thisModule = Config::get("core.module.{$this->getModuleName()}", []);
+        $allModule  = Config::get('cms.module.all', []);
+        $thisModule = Config::get("cms.module.{$this->getModuleName()}", []);
 
         $this->coreConfig = array_replace_recursive($allModule, $thisModule);
 

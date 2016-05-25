@@ -136,7 +136,7 @@ trait Render
         $javascripts = $this->_javascripts;
         $stylesheets = $this->_stylesheets;
         $metas       = $this->_metas;
-        $menu        = Config::get('core.menu', []);
+        $menu        = Config::get('cms.menu', []);
         $is_iframe   = Input::get('is_iframe', false);
 
         /** Parse iframe */
