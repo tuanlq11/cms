@@ -95,16 +95,10 @@ class CMSProvider extends ServiceProvider
         if ($app instanceof \Illuminate\Foundation\Application && $app->runningInConsole()) {
             $migrationPath = realpath(__DIR__ . '/migration');
             $this->publishes([
-                $migrationPath      => database_path('migrations'),
-                __DIR__ . "/module" => app_path('Http/Modules'),
+                $migrationPath        => database_path('migrations'),
+                __DIR__ . "/module"   => app_path('Http/Modules'),
+                __DIR__ . "/resource" => resource_path(),
             ]);
-
-            if (!(new Filesystem())->exists(resource_path('cms'))) {
-                if ((new Filesystem())->makeDirectory(resource_path('cms'), 0755, false, true)) {
-                    /** Copy view resources */
-                    $this->publishes([__DIR__ . "/skeleton/module/view" => resource_path('cms')]);
-                }
-            }
         }
     }
 
