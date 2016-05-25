@@ -1,7 +1,8 @@
 <?php
 namespace tuanlq11\cms;
 
-use App\Models\Group;
+use tuanlq11\cms\model\Group;
+use \Illuminate\Filesystem\Filesystem;
 use tuanlq11\cms\console\GeneratorCommand;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
@@ -87,6 +88,8 @@ class CMSProvider extends ServiceProvider
      */
     private function initMigration(Application $app)
     {
+        (new Filesystem())->makeDirectory(app_path('Http/Modules/Authenticate'), 0755, false, true);
+
         if ($app instanceof \Illuminate\Foundation\Application && $app->runningInConsole()) {
             $migrationPath = realpath(__DIR__ . '/migration');
             $this->publishes([
