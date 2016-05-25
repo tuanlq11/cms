@@ -2,14 +2,11 @@
 
 namespace tuanlq11\cms\skeleton\module\base;
 
-use App\Models\Permission;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
-use Response, View, Redirect, Session, Request;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Input;
-use URL, Route;
+use URL, Route, Response, View, Redirect, Session, Request;
 
 /**
  * User: Mr.Tuan
@@ -25,9 +22,11 @@ trait Action
     /**
      * List object items
      *
+     * @param $locale string
+     *
      * @return Response
      */
-    public function index()
+    public function index($locale = 'en')
     {
         $items = $this->pagination($this->buildQuery())->setPath($this->getGeneratedUrl('index'));
         $this->generateHTMLObjAction($items);
@@ -43,22 +42,27 @@ trait Action
     /**
      * Show detail of item
      *
-     * @param $obj Model
+     * @param $obj     Model
      * @param $request Request
+     * @param $locale  string
      *
      * @return Response
      */
-    public function show(Request $request, $obj)
+    public function show(Request $request, $obj, $locale = 'en')
     {
         $form = $this->buildForm('show', 'show', $obj);
+
         return $this->renderView('show', get_defined_vars());
     }
 
     /**
      * Create new object
+     *
+     * @param $locale string
+     *
      * @return  Response
      */
-    public function create()
+    public function create($locale = 'en')
     {
         $this->buildForm('create', 'store');
         if (Session::has('form')) {
@@ -71,14 +75,18 @@ trait Action
 
     /**
      * Create new object
+     *
+     * @param $locale string
+     *
      * @return  Response
      */
-    public function store()
+    public function store($locale = 'en')
     {
         $this->buildForm('create', 'store');
         $data = Input::get('create');
         if (!$this->validateForm(null, 'create')) {
             $this->setFormData($data);
+
             return redirect()
                 ->to($this->getGeneratedUrl('create'))
                 ->withErrors($this->form->getErrors())
@@ -104,11 +112,12 @@ trait Action
     /**
      * Edit page for edit item
      *
-     * @param $obj Model
+     * @param $locale string
+     * @param $obj    mixed
      *
      * @return Response
      */
-    public function edit($obj)
+    public function edit($obj, $locale = 'en')
     {
         $this->buildForm('edit', 'update', $obj);
         if (Session::has('form')) {
@@ -122,14 +131,16 @@ trait Action
     /**
      * Update exists item
      *
-     * @param $obj Model
+     * @param  $obj    Model
+     * @param  $locale string
      *
      * @return Response
      */
-    public function update($obj)
+    public function update($obj, $locale = 'en')
     {
         if (isset($_REQUEST["_delete"])) {
             $obj->delete();
+
             return redirect()
                 ->action(sprintf('\App\Http\Modules\%1$s\%1$sActions@index', $this->getModuleName()))
                 ->withSuccess("Delete Success");
@@ -139,6 +150,7 @@ trait Action
         $data = Input::get('edit');
         if (!$this->validateForm()) {
             $this->setFormData($data);
+
             return redirect()
                 ->action(sprintf('\App\Http\Modules\%1$s\%1$sActions@edit', $this->getModuleName()), $obj)
                 ->withErrors($this->form->getErrors())
@@ -155,11 +167,12 @@ trait Action
     /**
      * Delete item
      *
-     * @param $obj Model
+     * @param $obj    Model
+     * @param $locale string
      *
      * @return Response
      */
-    public function destroy($obj)
+    public function destroy($obj, $locale = 'en')
     {
         if (empty($obj)) return redirect($this->getGeneratedUrl('index'))->with('Message', trans('delete.notexists'));
 
@@ -170,9 +183,12 @@ trait Action
 
     /**
      * Filter item in list
+     *
+     * @param $locale string
+     *
      * @return Response
      */
-    public function filter()
+    public function filter($locale = 'en')
     {
         Route::dispatchToRoute(Request::create(URL::previous()));
         $previousAction = $this->getCurrentAction();
@@ -182,11 +198,13 @@ trait Action
 
         if (isset($_REQUEST['_btnReset'])) {
             $this->clearFilter();
+
             return redirect(URL::previous());
         }
 
         if (!$this->validateFilter()) {
             $this->setFilterData($this->getFilter());
+
             return redirect()
                 ->action(sprintf('\App\Http\Modules\%1$s\%1$sActions@' . $previousAction, $this->getModuleName()))
                 ->withErrors($this->form_filter->getErrors())
@@ -194,6 +212,7 @@ trait Action
         }
 
         $this->saveFilter();
+
         return redirect(URL::previous());
     }
 
