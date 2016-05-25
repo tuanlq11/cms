@@ -47,7 +47,7 @@ trait Render
         $config     = $this->getConfig($configName);
 
         if (!$config) {
-            return 'System::layout';
+            return 'cms::layout';
         }
 
         $namespace = $config['namespace'];
