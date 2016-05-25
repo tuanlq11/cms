@@ -95,7 +95,7 @@ class CMSProvider extends ServiceProvider
             $this->publishes([
                 $migrationPath                             => database_path('migrations'),
                 /** Copy default Authenticate module */
-                __DIR__ . "/console/template/Authenticate" => app_path('Http/Modules') . "/",
+                __DIR__ . "/console/template/Authenticate" => app_path('Http/Modules/Authenticate'),
             ]);
         }
     }
