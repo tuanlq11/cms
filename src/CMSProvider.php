@@ -10,10 +10,7 @@ use Illuminate\Contracts\Foundation\Application;
 use Route, Validator, View, Session;
 
 /**
- * Created by Mr.Tuan.
- * User: tuanlq
- * Date: 1/15/16
- * Time: 11:16 AM
+ * Created by Fallen
  */
 class CMSProvider extends ServiceProvider
 {
@@ -74,8 +71,8 @@ class CMSProvider extends ServiceProvider
         $this->replaceConfigFrom(__DIR__ . '/configs/form-builder.php', 'laravel-form-builder');
         $this->mergeConfigFrom(__DIR__ . '/configs/menu.php', 'core.menu');
 
-        Validator::extend('equal_field', "Core\\Bases\\Validators\\core@equal_field");
-        Validator::extend('arr_exists', "Core\\Bases\\Validators\\core@arr_exists");
+        Validator::extend('equal_field', "tuanlq11\\cms\\validator\\core@equal_field");
+        Validator::extend('arr_exists', "tuanlq11\\cms\\validator\\core@arr_exists");
 
         $this->configRoute();
         View::addNamespace("System", base_path() . "/core/bases/module/view");

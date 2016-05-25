@@ -1,11 +1,8 @@
 <?php
-namespace Core\Bases\Validators;
+namespace tuanlq11\cms\validator;
 
 /**
- * Created by Mr.Tuan.
- * User: tuanlq
- * Date: 1/26/16
- * Time: 4:05 PM
+ * Created by Fallen
  */
 use DB;
 
@@ -37,7 +34,7 @@ class core
     public function arr_exists($attribute, $value, $parameters, $validator)
     {
         list($table, $field) = $parameters;
-        $value = (array)$value;
+        $value   = (array)$value;
         $results = DB::table($table)->whereIn($field, $value)->get();
 
         return count($results) == count($value);

@@ -6,10 +6,7 @@ use Symfony\Component\Console\Input\InputArgument;
 use \Illuminate\Filesystem\Filesystem;
 
 /**
- * Created by Mr.Tuan.
- * User: tuanlq
- * Date: 1/22/16
- * Time: 7:41 AM
+ * Created by Fallen
  */
 class GeneratorCommand extends Command
 {
