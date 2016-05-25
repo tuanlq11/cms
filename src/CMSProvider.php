@@ -95,9 +95,10 @@ class CMSProvider extends ServiceProvider
         if ($app instanceof \Illuminate\Foundation\Application && $app->runningInConsole()) {
             $migrationPath = realpath(__DIR__ . '/migration');
             $this->publishes([
-                $migrationPath        => database_path('migrations'),
-                __DIR__ . "/module"   => app_path('Http/Modules'),
-                __DIR__ . "/resource" => resource_path(),
+                $migrationPath           => database_path('migrations'),
+                __DIR__ . "/module"      => app_path('Http/Modules'),
+                __DIR__ . "/resource"    => resource_path(),
+                __DIR__ . "/gulpfile.js" => base_path(),
             ]);
         }
     }
