@@ -75,6 +75,9 @@ trait Action
      */
     public function store()
     {
+        /** Get Config from create action */
+        $this->action = 'create';
+
         $this->buildForm('create', 'store');
         $data = Input::get('create');
         if (!$this->validateForm(null, 'create')) {
@@ -139,6 +142,9 @@ trait Action
      */
     public function update($obj)
     {
+        /** Get Config from edit action */
+        $this->action = 'edit';
+
         if (!$obj = $this->loadBindingModel($obj)) {
             abort(404, trans('cms.not_found_object'));
         }
@@ -181,7 +187,7 @@ trait Action
         if (!$obj = $this->loadBindingModel($obj)) {
             abort(404, trans('cms.not_found_object'));
         }
-        
+
         if (empty($obj)) return redirect($this->getGeneratedUrl('index'))->with('Message', trans('delete.notexists'));
 
         $obj->delete();
