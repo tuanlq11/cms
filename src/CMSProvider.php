@@ -34,15 +34,15 @@ class CMSProvider extends ServiceProvider
      * Default format for url
      */
     protected $defaultUrl = [
-        'index'       => '{PREFIX}/{locale?}',
-        'filter'      => '{PREFIX}/{ACTION}/{locale?}',
-        'edit'        => '{PREFIX}/{{MODULENAME}}/{ACTION}/{locale?}',
-        'update'      => '{PREFIX}/{{MODULENAME}}/{ACTION}/{locale?}',
-        'create'      => '{PREFIX}/create/{locale?}',
-        'store'       => '{PREFIX}/store/{locale?}',
-        'show'        => '{PREFIX}/{{MODULENAME}}/{ACTION}/{locale?}',
-        'destroy'     => '{PREFIX}/{{MODULENAME}}/{ACTION}/{locale?}',
-        'batchAction' => '{PREFIX}/{ACTION}/{locale?}',
+        'index'       => '{PREFIX}',
+        'filter'      => '{PREFIX}/{ACTION}',
+        'edit'        => '{PREFIX}/{{MODULENAME}}/{ACTION}',
+        'update'      => '{PREFIX}/{{MODULENAME}}/{ACTION}',
+        'create'      => '{PREFIX}/create',
+        'store'       => '{PREFIX}/store',
+        'show'        => '{PREFIX}/{{MODULENAME}}/{ACTION}',
+        'destroy'     => '{PREFIX}/{{MODULENAME}}/{ACTION}',
+        'batchAction' => '{PREFIX}/{ACTION}',
     ];
 
     /**
