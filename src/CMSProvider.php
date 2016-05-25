@@ -99,7 +99,7 @@ class CMSProvider extends ServiceProvider
                 __DIR__ . "/module"   => app_path('Http/Modules'),
                 __DIR__ . "/resource" => resource_path(),
                 __DIR__ . "/gulp"     => base_path(),
-                __DIR__ . "/configs"  => config_path(),
+                __DIR__ . "/configs"  => config_path('core'),
             ]);
         }
     }
