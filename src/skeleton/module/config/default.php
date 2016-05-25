@@ -163,7 +163,7 @@ return [
              */
             'layout'          => [
                 'name'      => 'layout',
-                'namespace' => '',
+                'namespace' => null,
             ],
             /**
              * Add extension iframe(s) to this view
@@ -234,7 +234,7 @@ return [
              */
             'layout'      => [
                 'name'      => 'layout',
-                'namespace' => '',
+                'namespace' => null,
             ],
         ],
         'show'        => [
