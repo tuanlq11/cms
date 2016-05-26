@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Str;
 use Kris\LaravelFormBuilder\Fields\ButtonType;
 use Kris\LaravelFormBuilder\Form;
-use FormBuilder, Session, Schema;
+use FormBuilder, Session, Schema, Cache;
 
 /**
  * Class Filter
