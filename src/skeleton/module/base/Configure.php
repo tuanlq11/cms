@@ -11,8 +11,15 @@ use Cache, Schema, Config;
  */
 trait Configure
 {
+    /** Name of cache to store form-filter object serialization */
+    protected $cached_filter_form_object_name = "cms.{MODULE}.{ACTION}.form-filter.object";
+
+    /** Name of cache store configuration string **/
+    protected $cached_configuration_name = "core.{MODULE}.{ACTION}.config.cached";
+
     /**
      * Prefix path configuration static
+     *
      * @var string
      */
     protected $static_configuration_prefix = "/configs/";
@@ -20,30 +27,35 @@ trait Configure
     /**
      * Result of mered from all config
      * Store config get from Default -> Global -> Static config -> Database config
+     *
      * @var array
      */
     private $config = [];
 
     /**
      * This is default config for all module
+     *
      * @var array
      */
     protected $coreConfig = [];
 
     /**
      * Default core config for module
+     *
      * @var array $default_configuration
      */
     protected $default_configuration = [];
 
     /**
      * Global config in /config/{ModuleName}.php
+     *
      * @var array $default_configuration
      */
     protected $global_configuration = [];
 
     /**
      * Static config in app/Http/Modules/{ModuleName}/config/config.php
+     *
      * @var array $default_configuration
      */
     protected $static_configuration = [];
@@ -57,6 +69,7 @@ trait Configure
      *  + name #Hash environment + module_name + action
      *
      * Dynamic config has priority highest
+     *
      * @var array $default_configuration
      */
     protected $dynamic_configuration = [];
@@ -80,6 +93,7 @@ trait Configure
     {
         $config                      = include(__DIR__ . "/../config/default.php");
         $this->default_configuration = $config;
+
         return $this;
     }
 
@@ -93,6 +107,7 @@ trait Configure
         $path                       = strtolower($this->getModuleName());
         $config                     = Config::get($path, []);
         $this->global_configuration = $config;
+
         return $this;
     }
 
@@ -134,6 +149,7 @@ trait Configure
         }
 
         $this->static_configuration = include($path);
+
         return $this;
     }
 
@@ -176,12 +192,23 @@ trait Configure
     }
 
     /**
+     * Prepare variable for load config
+     */
+    protected function prepareVariable()
+    {
+        /** Init cache key */
+        $this->cached_configuration_name      = strtolower(str_replace('{ACTION}', $this->action, str_replace('{MODULE}', $this->getModuleName(), $this->cached_configuration_name)));
+        $this->cached_filter_form_object_name = strtolower(str_replace('{ACTION}', $this->action, str_replace('{MODULE}', $this->getModuleName(), $this->cached_filter_form_object_name)));
+    }
+
+    /**
      * Load all configuration for action
      */
     protected function initConfiguration()
     {
-        $cacheKey = strtolower(sprintf("core.%s.%s.config.cached", $this->getModuleName(), $this->action));
-        if (!($this->config = Cache::get($cacheKey, null))) {
+        $this->prepareVariable();
+
+        if (!($this->config = Cache::get($this->cached_configuration_name, null))) {
             $this->loadCoreConfig();
             $this->loadDefaultConfiguration();
             $this->loadGlobalConfiguration();
@@ -214,9 +241,9 @@ trait Configure
             /** Cache Configuration */
             $cacheConfiguration = $this->getConfig("cache.configuration", $this->action);
             if ($cacheConfiguration['enabled']) {
-                Cache::put($cacheKey, $this->config, Carbon::now()->addSecond($cacheConfiguration['lifetime']));
+                Cache::put($this->cached_configuration_name, $this->config, Carbon::now()->addSecond($cacheConfiguration['lifetime']));
             } else {
-                Cache::forget($cacheKey);
+                Cache::forget($this->cached_configuration_name);
             }
             /** END */
         }
@@ -227,8 +254,8 @@ trait Configure
     /**
      * Return Config variable
      *
-     * @param $action string|boolean
-     * @param $key string
+     * @param $action  string|boolean
+     * @param $key     string
      * @param $default mixed
      *
      * @return mixed
@@ -252,12 +279,14 @@ trait Configure
 
     /**
      * Get local config to only focus action
-     * @param $key
+     *
+     * @param      $key
      * @param null $default
      */
     public function getActionConfig($key = null, $default = null)
     {
         $key = $key ? '.' . $key : '';
+
         return array_get($this->config, "{$this->action}{$key}", $default);
     }
 
@@ -291,6 +320,7 @@ trait Configure
      * Get List field config for index page. Or custom page
      * Show 'list'
      * Hide 'hidden'
+     *
      * @return array
      */
     public function getListFieldsConfig()
