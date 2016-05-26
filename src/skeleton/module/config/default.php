@@ -5,6 +5,7 @@ return [
     'all' => [
         /**
          * With true => User must login to access
+         *
          * @var boolean
          */
         'is_secure'   => true,
@@ -31,6 +32,14 @@ return [
         'field'       => [],
         'cache'       => [
             'configuration' => [
+                'enabled'  => false,
+                'lifetime' => 3600,
+            ],
+            'filter'        => [
+                'enabled'  => false,
+                'lifetime' => 3600,
+            ],
+            'form'          => [
                 'enabled'  => false,
                 'lifetime' => 3600,
             ],
@@ -77,6 +86,7 @@ return [
             ],
             /**
              * With true => User must login to access
+             *
              * @var boolean
              */
             'is_secure'      => true,
@@ -186,6 +196,7 @@ return [
         'edit'        => [
             /**
              * With true => User must login to access
+             *
              * @var boolean
              */
             'is_secure'   => true,

@@ -13,6 +13,7 @@ use FormBuilder, Session, Schema;
  * @method string getModuleName()
  * @method string getConfig(string $key = '')
  * @method string getMethodFromRule(string $rule)
+ *
  * @property string action
  * @package Core\Bases\Module\Base
  */
@@ -42,99 +43,115 @@ trait Filter
      */
     protected function buildFormFilter($filterData = [])
     {
-        $action = $this->action;
-        /** @var Form $filter */
-        $filter = null;
+        if (!($this->form_filter = Cache::get($this->cached_filter_form_object_name, null))) {
 
-        /** List available namespace exists to class */
-        $filter_classs = [
-            // Static class string in custom config [1]
-            $this->getConfig('index')['filter_class'],
-            // Auto detect exists class in module directory [2]
-            sprintf("App\\Forms\\%sFilter", $this->getModuleName()),
-            // Auto detect exists class in form directory [3]
-            sprintf("App\\Http\\Modules\\%s\\filters\\%sFilter", $this->getModuleName(), $this->getModuleName()),
-        ];
-        /** End */
+            $action = $this->action;
+            /** @var Form $filter */
+            $filter = null;
 
-        /** Check first namespace exists */
-        foreach ($filter_classs as $class) {
-            if (class_exists($class)) {
-                $filter = $class;
-                break;
-            }
-        }
-        /** End */
-
-        if (is_null($filter)) {
-            if (env('APP_DEBUG')) {
-                $message = "Not found FormFilter for module!";
-//                abort(404, $message);
-            }
-
-            $this->form_filter = null;
-            return null;
-        }
-
-        /**
-         * Use FormBuilder to init class form
-         */
-        $filter_action = $this->getActionConfig('filter_action', 'filter');
-        $filter        = FormBuilder::create(
-            $filter,
-            [
-                'method' => 'post',
-                'route'  => $this->getGeneratedRoute($filter_action),
-                'name'   => "filters",
-            ],
-            $filterData
-        );
-
-        /**
-         * Get List config of filter from module config
-         * @var  $filterConfig
-         */
-        $filterConfig = $this->getConfig("{$action}.filter");
-
-        /**
-         * Create field to form if it not exists
-         * @var string $key
-         * @var  string $config
-         */
-        foreach ($filterConfig as $key => $config) {
-            if ($filter->has($key)) continue;
-            $key = trim($key, '[]');
-
-            $fieldParams = [
-                'default_value' => array_get($config, 'default_value', ''),
-                'label'         => array_get($config, 'label', $key),
-                'class'         => array_get($config, 'class', ''),
-                'rules'         => array_get($config, 'validation', ''),
+            /** List available namespace exists to class */
+            $filter_classs = [
+                // Static class string in custom config [1]
+                $this->getConfig('index')['filter_class'],
+                // Auto detect exists class in module directory [2]
+                sprintf("App\\Forms\\%sFilter", $this->getModuleName()),
+                // Auto detect exists class in form directory [3]
+                sprintf("App\\Http\\Modules\\%s\\filters\\%sFilter", $this->getModuleName(), $this->getModuleName()),
             ];
+            /** End */
 
-            if (isset($config['template'])) {
-                $fieldParams['template'] = $config['template'];
+            /** Check first namespace exists */
+            foreach ($filter_classs as $class) {
+                if (class_exists($class)) {
+                    $filter = $class;
+                    break;
+                }
+            }
+            /** End */
+
+            if (is_null($filter)) {
+                if (env('APP_DEBUG')) {
+                    $message = "Not found FormFilter for module!";
+//                abort(404, $message);
+                }
+
+                $this->form_filter = null;
+
+                return null;
             }
 
-            $fieldParams = array_merge($fieldParams, (array)array_get($config, 'params', []));
+            /**
+             * Use FormBuilder to init class form
+             */
+            $filter_action = $this->getActionConfig('filter_action', 'filter');
+            $filter        = FormBuilder::create(
+                $filter,
+                [
+                    'method' => 'post',
+                    'route'  => $this->getGeneratedRoute($filter_action),
+                    'name'   => "filters",
+                ],
+                $filterData
+            );
 
-            $filter->add($key, array_get($config, 'type', 'text'), $fieldParams);
+            /**
+             * Get List config of filter from module config
+             *
+             * @var  $filterConfig
+             */
+            $filterConfig = $this->getConfig("{$action}.filter");
+
+            /**
+             * Create field to form if it not exists
+             *
+             * @var string  $key
+             * @var  string $config
+             */
+            foreach ($filterConfig as $key => $config) {
+                if ($filter->has($key)) continue;
+                $key = trim($key, '[]');
+
+                $fieldParams = [
+                    'default_value' => array_get($config, 'default_value', ''),
+                    'label'         => array_get($config, 'label', $key),
+                    'class'         => array_get($config, 'class', ''),
+                    'rules'         => array_get($config, 'validation', ''),
+                ];
+
+                if (isset($config['template'])) {
+                    $fieldParams['template'] = $config['template'];
+                }
+
+                $fieldParams = array_merge($fieldParams, (array)array_get($config, 'params', []));
+
+                $filter->add($key, array_get($config, 'type', 'text'), $fieldParams);
+            }
+            /** End */
+
+            /** Default two button Filter and Reset */
+            $buttons = $this->getConfig("{$action}.filter_buttons.items");
+            array_walk($buttons, function (&$v, $k) use ($filter) {
+                $type    = array_get($v, 'type', 'submit');
+                $options = array_get($v, 'options', []);
+                $v       = new ButtonType($k, $type, $filter, $options);
+            });
+            $filter
+                ->add('btnBottom', 'groupButtons', ['wrapper' => $this->getConfig("{$action}.filter_buttons.wrapper"), 'items' => $buttons])
+                ->rebuildForm();
+            /** End */
+
+            $this->form_filter = $filter;
+
+            /** Cache Filter Object Serialization */
+            $cacheConfiguration = $this->getConfig("cache.filter", $this->action);
+            if ($cacheConfiguration['enabled']) {
+                Cache::put($this->cached_filter_form_object_name, serialize($filter), Carbon::now()->addSecond($cacheConfiguration['lifetime']));
+            } else {
+                Cache::forget($this->cached_filter_form_object_name);
+            }
+            /** END */
+
         }
-        /** End */
-
-        /** Default two button Filter and Reset */
-        $buttons = $this->getConfig("{$action}.filter_buttons.items");
-        array_walk($buttons, function (&$v, $k) use ($filter) {
-            $type    = array_get($v, 'type', 'submit');
-            $options = array_get($v, 'options', []);
-            $v       = new ButtonType($k, $type, $filter, $options);
-        });
-        $filter
-            ->add('btnBottom', 'groupButtons', ['wrapper' => $this->getConfig("{$action}.filter_buttons.wrapper"), 'items' => $buttons])
-            ->rebuildForm();
-        /** End */
-
-        $this->form_filter = $filter;
         $this->setFilterData($filterData === [] ? $this->getCurrentFilter() : $filterData);
 
         return $this;
@@ -161,6 +178,7 @@ trait Filter
     protected function getFilterPrefix()
     {
         $prefix = md5(sprintf("%s-%s-filter", env('APP_ENV'), $this->getModuleName()));
+
         return $prefix;
     }
 
@@ -179,6 +197,7 @@ trait Filter
 
     /**
      * Get current filter in session
+     *
      * @return array
      */
     protected function getCurrentFilter()
@@ -188,6 +207,7 @@ trait Filter
 
     /**
      * Get Filter validation and message in config
+     *
      * @return array
      */
     protected function getFilterValidation()
