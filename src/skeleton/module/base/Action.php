@@ -47,6 +47,10 @@ trait Action
      */
     public function show(Request $request, $obj)
     {
+        if (!$obj = $this->loadBindingModel($obj)) {
+            abort(404, trans('cms.not_found_object'));
+        }
+        
         $form = $this->buildForm('show', 'show', $obj);
 
         return $this->renderView('show', get_defined_vars());
