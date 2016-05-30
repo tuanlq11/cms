@@ -154,7 +154,7 @@ trait Query
         $defaultFunc = "applyData";
 
         foreach ($data as $key => $value) {
-            $applyFunc = "apply{$key}Data";
+            $applyFunc = sprintf("apply%sData", $this->parseFuncName($key));
             call_user_func_array([$this, method_exists($this, $applyFunc) ? $applyFunc : $defaultFunc], [&$obj, $key, $value]);
         }
 

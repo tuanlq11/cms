@@ -272,6 +272,14 @@ class Base extends Controller
     }
 
     /**
+     * Parse string|key to func name
+     */
+    public function parseFuncName($name)
+    {
+        return Str::studly($name);
+    }
+
+    /**
      * Return current locale
      */
     public function getCurrentLocale()
