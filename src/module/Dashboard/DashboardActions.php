@@ -11,7 +11,8 @@ class DashboardActions extends BaseActions
         $menu        = Config::get('core.menu', []);
         $javascripts = $this->_javascripts;
         $stylesheets = $this->_stylesheets;
-
+        $layout      = 'cms::layout';
+        
         return View::make("Dashboard::index", get_defined_vars())->with('menu', $menu)->with('controller', $this);
     }
 }
