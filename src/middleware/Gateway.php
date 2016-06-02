@@ -2,6 +2,7 @@
 
 namespace tuanlq11\cms\middleware;
 
+use Illuminate\Support\Facades\App;
 use tuanlq11\cms\model\User;
 use Request, Closure, Route, Config, Auth, Session;
 
@@ -15,7 +16,7 @@ class Gateway
     /**
      * @param Request $request
      * @param Closure $next
-     * @param string $module
+     * @param string  $module
      *
      * @return mixed
      */
@@ -47,6 +48,7 @@ class Gateway
                 $groupRules = $user->groups()->where('is_active', true)->with([
                     'roles' => function ($subQuery) {
                         $subQuery->select(['id', 'name']);
+
                         return $subQuery;
                     },
                 ])->get()->toArray();
@@ -66,6 +68,12 @@ class Gateway
 
         Session::put(sprintf("%s-preload", strtolower($module)), ['rules' => $rules]);
 
+        /** Apply locale to Laravel-Loacle */
+        if ($locale = Session::get('cms.locale', null)) {
+            App::setLocale($locale);
+        }
+        /** END */
+
         /** Apply Session Locale */
         if (Session::has('language')) {
             \App::setLocale(Session::get('language'));
@@ -80,8 +88,8 @@ class Gateway
     /**
      * Return Config variable
      *
-     * @param $action string|boolean
-     * @param $key string
+     * @param $action  string|boolean
+     * @param $key     string
      * @param $default mixed
      *
      * @return mixed
@@ -104,6 +112,7 @@ class Gateway
 
     /**
      * Return environment
+     *
      * @return mixed
      */
     protected function getEnv()
