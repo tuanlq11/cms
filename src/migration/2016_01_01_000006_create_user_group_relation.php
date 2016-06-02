@@ -5,6 +5,8 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateUserGroupRelation extends Migration
 {
+    protected $table_name = 'user_group_relations';
+
     /**
      * Run the migrations.
      *
@@ -12,8 +14,7 @@ class CreateUserGroupRelation extends Migration
      */
     public function up()
     {
-        Schema::dropIfExists('user_group_relations');
-        Schema::create('user_group_relation', function (Blueprint $table) {
+        Schema::create($this->table_name, function (Blueprint $table) {
             $table->integer('user_id', false, true);
             $table->integer('group_id', false, true);
 
@@ -29,6 +30,6 @@ class CreateUserGroupRelation extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_group_relation');
+        Schema::dropIfExists($this->table_name);
     }
 }

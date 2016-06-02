@@ -5,6 +5,8 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreatePermission extends Migration
 {
+    protected $table_name = 'permissions';
+
     /**
      * Run the migrations.
      *
@@ -12,8 +14,7 @@ class CreatePermission extends Migration
      */
     public function up()
     {
-        Schema::dropIfExists('permissions');
-        Schema::create("permissions", function (Blueprint $table) {
+        Schema::create($this->table_name, function (Blueprint $table) {
             $table->increments('id');
             $table->string('module');
             $table->string('action');
@@ -30,6 +31,6 @@ class CreatePermission extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('permissions');
+        Schema::dropIfExists($this->table_name);
     }
 }

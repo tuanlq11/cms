@@ -5,6 +5,8 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateRoleUserRelation extends Migration
 {
+    protected $table_name = 'role_user_relations';
+
     /**
      * Run the migrations.
      *
@@ -13,7 +15,7 @@ class CreateRoleUserRelation extends Migration
     public function up()
     {
         Schema::dropIfExists('role_user_relations');
-        Schema::create('role_user_relation', function (Blueprint $table) {
+        Schema::create($this->table_name, function (Blueprint $table) {
             $table->integer('role_id', false, true);
             $table->integer('user_id', false, true);
 
@@ -29,6 +31,6 @@ class CreateRoleUserRelation extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('role_user_relation');
+        Schema::dropIfExists($this->table_name);
     }
 }

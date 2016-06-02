@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "bc2f1f32ced90ee2ee365891a9ef77a2",
-    "content-hash": "0c78e963633edeca30f6acffea8724d4",
+    "hash": "1215bdf21f4061c2d8d7f9a8c9c489a7",
+    "content-hash": "bd4ceceb4f534a6e49f59affa770af2e",
     "packages": [
         {
             "name": "barryvdh/laravel-debugbar",
@@ -2393,16 +2393,16 @@
         },
         {
             "name": "tuanlq11/dbi18n",
-            "version": "1.0.0",
+            "version": "1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tuanlq11/dbi18n.git",
-                "reference": "6d7d4b6bd9cf9897b7e351656e87d0755a99644c"
+                "reference": "f446e0c8dbb6d563b34fd05a04a172c3ca0bdf4c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tuanlq11/dbi18n/zipball/6d7d4b6bd9cf9897b7e351656e87d0755a99644c",
-                "reference": "6d7d4b6bd9cf9897b7e351656e87d0755a99644c",
+                "url": "https://api.github.com/repos/tuanlq11/dbi18n/zipball/f446e0c8dbb6d563b34fd05a04a172c3ca0bdf4c",
+                "reference": "f446e0c8dbb6d563b34fd05a04a172c3ca0bdf4c",
                 "shasum": ""
             },
             "require": {
@@ -2426,7 +2426,7 @@
                 }
             ],
             "description": "Support Database Multi-Language",
-            "time": "2016-05-24 08:57:55"
+            "time": "2016-06-02 07:48:01"
         },
         {
             "name": "vlucas/phpdotenv",

@@ -5,6 +5,8 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateGroup extends Migration
 {
+    protected $table_name = 'groups';
+
     /**
      * Run the migrations.
      *
@@ -18,8 +20,7 @@ class CreateGroup extends Migration
             return new \tuanlq11\dbi18n\I18NBlueprint($table, $callback);
         });
 
-        $schema->dropIfExists('groups');
-        $schema->create('groups', function (\tuanlq11\dbi18n\I18NBlueprint $table) {
+        $schema->create($this->table_name, function (\tuanlq11\dbi18n\I18NBlueprint $table) {
             $table->increments('id');
             $table->i18n_string('name', 64)->unique();
             $table->i18n_string('description', 255)->nullable();
@@ -42,6 +43,6 @@ class CreateGroup extends Migration
         });
 
 
-        $schema->dropIfExists('groups');
+        $schema->dropIfExists($this->table_name);
     }
 }

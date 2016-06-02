@@ -6,6 +6,11 @@ use tuanlq11\auditing\AuditingTrait;
 use tuanlq11\dbi18n\I18NDBTrait;
 use Illuminate\Support\Facades\Session;
 
+/**
+ * Class Group
+ *
+ * @package tuanlq11\cms\model
+ */
 class Group extends Model
 {
     use AuditingTrait;

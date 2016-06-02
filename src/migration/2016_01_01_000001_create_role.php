@@ -5,6 +5,8 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateRole extends Migration
 {
+    protected $table_name = 'roles';
+
     /**
      * Run the migrations.
      *
@@ -12,8 +14,7 @@ class CreateRole extends Migration
      */
     public function up()
     {
-        Schema::dropIfExists('roles');
-        Schema::create('roles', function (Blueprint $table) {
+        Schema::create($this->table_name, function (Blueprint $table) {
             $table->increments('id');
             $table->string('name', 64)->unique();
             $table->string('description', 255)->nullable();
@@ -29,6 +30,6 @@ class CreateRole extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('roles');
+        Schema::dropIfExists($this->table_name);
     }
 }

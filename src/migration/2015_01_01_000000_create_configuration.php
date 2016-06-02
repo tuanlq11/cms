@@ -5,6 +5,8 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateConfiguration extends Migration
 {
+    protected $table_name = 'configurations';
+
     /**
      * Run the migrations.
      *
@@ -12,8 +14,7 @@ class CreateConfiguration extends Migration
      */
     public function up()
     {
-        Schema::dropIfExists('configurations');
-        Schema::create('configurations', function (Blueprint $table) {
+        Schema::create($this->table_name, function (Blueprint $table) {
             $table->increments('id');
             $table->string('environment')->unique();
             $table->string('module')->unique();
@@ -28,6 +29,6 @@ class CreateConfiguration extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('configurations');
+        Schema::dropIfExists($this->table_name);
     }
 }
