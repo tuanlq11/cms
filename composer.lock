@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "26f45014e5b75b93e363ec08f91a138b",
-    "content-hash": "2c401db8508be80c6a809bc53e399b58",
+    "hash": "bc2f1f32ced90ee2ee365891a9ef77a2",
+    "content-hash": "0c78e963633edeca30f6acffea8724d4",
     "packages": [
         {
             "name": "barryvdh/laravel-debugbar",
@@ -764,16 +764,16 @@
         },
         {
             "name": "kris/laravel-form-builder",
-            "version": "1.6.50",
+            "version": "1.7.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kristijanhusak/laravel-form-builder.git",
-                "reference": "627c5e40b8c5e29fb8e68d142bcd3379cd850611"
+                "reference": "28570c1e7967e9af2bdce65a5d14f2ef104eb4e8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kristijanhusak/laravel-form-builder/zipball/627c5e40b8c5e29fb8e68d142bcd3379cd850611",
-                "reference": "627c5e40b8c5e29fb8e68d142bcd3379cd850611",
+                "url": "https://api.github.com/repos/kristijanhusak/laravel-form-builder/zipball/28570c1e7967e9af2bdce65a5d14f2ef104eb4e8",
+                "reference": "28570c1e7967e9af2bdce65a5d14f2ef104eb4e8",
                 "shasum": ""
             },
             "require": {
@@ -814,20 +814,20 @@
                 }
             ],
             "description": "Laravel form builder - symfony like",
-            "time": "2016-01-22 12:48:35"
+            "time": "2016-05-31 17:37:50"
         },
         {
             "name": "laravel/framework",
-            "version": "v5.2.32",
+            "version": "v5.2.35",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "f688217113f70b01d0e127da9035195415812bef"
+                "reference": "d2b6b0fe32fab610d356c22e74a6ffd101b0f513"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/f688217113f70b01d0e127da9035195415812bef",
-                "reference": "f688217113f70b01d0e127da9035195415812bef",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/d2b6b0fe32fab610d356c22e74a6ffd101b0f513",
+                "reference": "d2b6b0fe32fab610d356c22e74a6ffd101b0f513",
                 "shasum": ""
             },
             "require": {
@@ -943,7 +943,7 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2016-05-17 13:24:40"
+            "time": "2016-05-30 17:42:01"
         },
         {
             "name": "laravelcollective/html",
@@ -1693,16 +1693,16 @@
         },
         {
             "name": "symfony/event-dispatcher",
-            "version": "v3.0.6",
+            "version": "v3.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/event-dispatcher.git",
-                "reference": "807dde98589f9b2b00624dca326740380d78dbbc"
+                "reference": "0343b2cedd0edb26cdc791212a8eb645c406018b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/event-dispatcher/zipball/807dde98589f9b2b00624dca326740380d78dbbc",
-                "reference": "807dde98589f9b2b00624dca326740380d78dbbc",
+                "url": "https://api.github.com/repos/symfony/event-dispatcher/zipball/0343b2cedd0edb26cdc791212a8eb645c406018b",
+                "reference": "0343b2cedd0edb26cdc791212a8eb645c406018b",
                 "shasum": ""
             },
             "require": {
@@ -1722,7 +1722,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "3.0-dev"
+                    "dev-master": "3.1-dev"
                 }
             },
             "autoload": {
@@ -1749,7 +1749,7 @@
             ],
             "description": "Symfony EventDispatcher Component",
             "homepage": "https://symfony.com",
-            "time": "2016-05-05 06:56:13"
+            "time": "2016-04-12 18:27:47"
         },
         {
             "name": "symfony/finder",
@@ -2355,16 +2355,16 @@
         },
         {
             "name": "tuanlq11/auditing",
-            "version": "0.1.2",
+            "version": "0.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tuanlq11/auditing.git",
-                "reference": "c8eaa3041d206fe8cb942f63416fa6daf3b56936"
+                "reference": "9dc10d0857e7b9ca5e09a0b4b03ab3d5863301ca"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tuanlq11/auditing/zipball/c8eaa3041d206fe8cb942f63416fa6daf3b56936",
-                "reference": "c8eaa3041d206fe8cb942f63416fa6daf3b56936",
+                "url": "https://api.github.com/repos/tuanlq11/auditing/zipball/9dc10d0857e7b9ca5e09a0b4b03ab3d5863301ca",
+                "reference": "9dc10d0857e7b9ca5e09a0b4b03ab3d5863301ca",
                 "shasum": ""
             },
             "require": {
@@ -2389,7 +2389,7 @@
                 }
             ],
             "description": "Helper Auditing User Activities",
-            "time": "2016-05-24 06:45:41"
+            "time": "2016-06-02 07:00:11"
         },
         {
             "name": "tuanlq11/dbi18n",
