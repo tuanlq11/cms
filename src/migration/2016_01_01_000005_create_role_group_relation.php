@@ -12,7 +12,7 @@ class CreateRoleGroupRelation extends Migration
      */
     public function up()
     {
-        Schema::dropIfExists('role_group_relation');
+        Schema::dropIfExists('role_group_relations');
         Schema::create('role_group_relation', function (Blueprint $table) {
             $table->integer('role_id', false, true);
             $table->integer('group_id', false, true);

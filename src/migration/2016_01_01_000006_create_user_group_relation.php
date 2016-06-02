@@ -12,7 +12,7 @@ class CreateUserGroupRelation extends Migration
      */
     public function up()
     {
-        Schema::dropIfExists('user_group_relation');
+        Schema::dropIfExists('user_group_relations');
         Schema::create('user_group_relation', function (Blueprint $table) {
             $table->integer('user_id', false, true);
             $table->integer('group_id', false, true);

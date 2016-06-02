@@ -14,12 +14,12 @@ use tuanlq11\auditing\AuditingTrait;
 /**
  * App\Models\User
  *
- * @property integer $id
- * @property string $name
- * @property string $email
- * @property string $password
- * @property boolean $super_admin
- * @property string $remember_token
+ * @property integer        $id
+ * @property string         $name
+ * @property string         $email
+ * @property string         $password
+ * @property boolean        $super_admin
+ * @property string         $remember_token
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  */
@@ -61,7 +61,7 @@ class User extends Model implements AuthenticatableContract,
      */
     public function roles()
     {
-        return $this->belongsToMany('tuanlq11\cms\model\Role', 'role_user_relation', 'user_id', 'role_id');
+        return $this->belongsToMany('tuanlq11\cms\model\Role', 'role_user_relations', 'user_id', 'role_id');
     }
 
     /**
@@ -69,7 +69,7 @@ class User extends Model implements AuthenticatableContract,
      */
     public function groups()
     {
-        return $this->belongsToMany('tuanlq11\cms\model\Group', 'user_group_relation', 'user_id', 'group_id');
+        return $this->belongsToMany('tuanlq11\cms\model\Group', 'user_group_relations', 'user_id', 'group_id');
     }
 
     /**
@@ -78,6 +78,7 @@ class User extends Model implements AuthenticatableContract,
     public function getRole()
     {
         $result = $this->roles()->get(['id'])->toArray();
+
         return array_pluck($result, 'id');
     }
 
@@ -87,6 +88,7 @@ class User extends Model implements AuthenticatableContract,
     public function getGroup()
     {
         $result = $this->groups()->get(['id'])->toArray();
+
         return array_pluck($result, 'id');
     }
 

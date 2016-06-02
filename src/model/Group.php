@@ -50,7 +50,7 @@ class Group extends Model
      */
     public function roles()
     {
-        return $this->belongsToMany('tuanlq11\cms\model\Role', 'role_group_relation', 'group_id', 'role_id');
+        return $this->belongsToMany('tuanlq11\cms\model\Role', 'role_group_relations', 'group_id', 'role_id');
     }
 
     /**
@@ -58,7 +58,7 @@ class Group extends Model
      */
     public function users()
     {
-        return $this->hasMany('tuanlq11\cms\model\User', 'user_group_relation', 'user_id', 'group_id');
+        return $this->hasMany('tuanlq11\cms\model\User', 'user_group_relations', 'user_id', 'group_id');
     }
 
     public function groupTranslations()
