@@ -116,13 +116,18 @@ trait Configure
      */
     protected function loadDynamicConfig()
     {
+        $locale    = $this->getCurrentLocale();
         $modelName = "tuanlq11\\cms\\model\\Permission";
         /** @var Model $model */
         $model = new $modelName();
         $query = $model->query();
 
         $query->whereRaw("upper(module) like ?", ["%" . strtoupper($this->getModuleName()) . "%"]);
-        $query->with('role');
+        $query->with([
+            'role' => function ($role) use ($locale) {
+                $role->I18N($locale)->select("*");
+            },
+        ]);
         $rawConfig      = $query->get()->toArray();
         $configurations = [];
         foreach ($rawConfig as $config) {
