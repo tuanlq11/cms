@@ -172,6 +172,11 @@ trait Query
      */
     protected function applyData(&$obj, $key, $value)
     {
-        if (isset($this->getFieldsConfig($this->getCurrentAction())[$key]) || $key == 'i18n') $obj->$key = $value;
+        $config = $this->getFieldsConfig($this->getCurrentAction());
+        if ((isset($config[$key]) && array_get($config[$key], "storable", true))
+            || $key == 'i18n'
+        ) {
+            $obj->$key = $value;
+        }
     }
 }
