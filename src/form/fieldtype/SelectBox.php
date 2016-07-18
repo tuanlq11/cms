@@ -3,6 +3,7 @@ namespace tuanlq11\cms\form\fieldtype;
 
 use Kris\LaravelFormBuilder\Fields\SelectType;
 use Kris\LaravelFormBuilder\Form;
+use Session, Config;
 
 /**
  * Created by Mr.Tuan.
@@ -18,6 +19,13 @@ class SelectBox extends SelectType
     public function __construct($name, $type, Form $parent, array $options)
     {
         $options['selected'] = array_get($options, 'value', null);
+
+        if (key_exists('choices', $options) && !empty($options['choices'])) {
+            $locale = Session::get('cms.locale', Config::get('app.locale', 'en'));
+            foreach ($options['choices'] as $key => $optionName) {
+                $options['choices'][$key] = trans($optionName, [], "messages", $locale);
+            }
+        }
 
         parent::__construct($name, $type, $parent, $options);
     }
