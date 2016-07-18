@@ -3,6 +3,7 @@ namespace tuanlq11\cms\skeleton\module\base;
 
 use Request, Auth;
 use Illuminate\Support\Facades\Input;
+use tuanlq11\cms\model\User;
 
 /**
  * Created by Mr.Tuan.
@@ -33,8 +34,13 @@ trait BatchAction
             }
 
             /** @var User $user */
-            $user       = Auth::user();
-            $rules      = array_pluck($user->roles()->get(['name'])->toArray(), 'name');
+            $user = Auth::user();
+            $user->load([
+                "roles" => function ($roles) {
+                    $roles->I18N();
+                },
+            ]);
+            $rules      = array_pluck($user->roles->toArray(), 'name');
             $matchRules = array_intersect($credentials, $rules);
 
             if (empty($matchRules) && !empty($credentials)) {
