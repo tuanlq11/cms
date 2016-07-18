@@ -1,8 +1,8 @@
 <?php
 namespace tuanlq11\cms\skeleton\module\base;
 
-use App\Models\User;
-use Input, Request, Auth;
+use Request, Auth;
+use Illuminate\Support\Facades\Input;
 
 /**
  * Created by Mr.Tuan.
@@ -14,6 +14,7 @@ trait BatchAction
 {
     /**
      * Suffix of batchAction name
+     *
      * @var string
      */
     protected $batchActionSuffix = 'BatchAction';
@@ -21,10 +22,10 @@ trait BatchAction
     private function checkBatchActionCredential($batchAction)
     {
         /** Because batchAction only avalid in index */
-        $action = 'index';
-        $is_secure = $this->getConfig('is_secure', $action)[0];
+        $action      = 'index';
+        $is_secure   = $this->getConfig('is_secure', $action)[0];
         $credentials = $this->getConfig("{$action}.batch_action.{$batchAction}.credential");
-        $logged = Auth::check();
+        $logged      = Auth::check();
 
         if ($is_secure) {
             if (!$logged) {
@@ -32,8 +33,8 @@ trait BatchAction
             }
 
             /** @var User $user */
-            $user = Auth::user();
-            $rules = array_pluck($user->roles()->get(['name'])->toArray(), 'name');
+            $user       = Auth::user();
+            $rules      = array_pluck($user->roles()->get(['name'])->toArray(), 'name');
             $matchRules = array_intersect($credentials, $rules);
 
             if (empty($matchRules) && !empty($credentials)) {
@@ -62,6 +63,7 @@ trait BatchAction
             if (env('APP_DEBUG')) {
                 abort(404, "Function {$action} not exists");
             }
+
             return redirect($this->getGeneratedUrl('index'));
         }
 
