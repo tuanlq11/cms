@@ -5,7 +5,7 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateSmtp extends Migration
 {
-    protected $table_name = 'smtp';
+    protected $table_name = 'smtps';
 
     /**
      * Run the migrations.
