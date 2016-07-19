@@ -44,7 +44,7 @@ class CreateSmtp extends Migration
         $$ LANGUAGE plpgsql;
         
         CREATE TRIGGER sync_smtp_default
-        AFTER UPDATE OF cms_default ON smtps
+        AFTER INSERT OR UPDATE OF cms_default ON smtps
         FOR EACH ROW WHEN (pg_trigger_depth() < 1) EXECUTE PROCEDURE sync_smtp_default();
 
 SQL
