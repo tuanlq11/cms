@@ -1,6 +1,7 @@
 <?php
 namespace tuanlq11\cms;
 
+use App\Http\Modules\Smtp\models\Smtp;
 use tuanlq11\cms\model\Group;
 use \Illuminate\Filesystem\Filesystem;
 use tuanlq11\cms\console\GeneratorCommand;
@@ -71,6 +72,10 @@ class CMSProvider extends ServiceProvider
         $this->initCMS($this->app);
 
         /** Merge core config */
+        $config         = Smtp::where("cms_default", true)->first()->toArray();
+        $config["from"] = ["address" => $config["from"], "name" => null];
+        $this->app["config"]->set("mail", array_merge($this->app["config"]->get("mail"), $config));
+
         $this->mergeConfigFrom(__DIR__ . '/configs/config.php', 'cms');
         $this->replaceConfigFrom(__DIR__ . '/configs/form-builder.php', 'laravel-form-builder');
         $this->mergeConfigFrom(__DIR__ . '/configs/menu.php', 'cms.menu');
