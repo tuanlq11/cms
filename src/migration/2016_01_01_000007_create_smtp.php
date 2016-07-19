@@ -27,7 +27,7 @@ class CreateSmtp extends Migration
             $table->boolean("cms_default")->default(false);
         });
 
-        DB::statement(<<<SQL
+        DB::connection()->getPdo()->exec(<<<SQL
         
          CREATE OR REPLACE FUNCTION sync_smtp_default() RETURNS TRIGGER AS $$
             BEGIN
