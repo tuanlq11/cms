@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateUserGroupRelation extends Migration
+class CreateSmtp extends Migration
 {
     protected $table_name = 'smtp';
 
