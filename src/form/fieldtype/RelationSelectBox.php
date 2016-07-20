@@ -4,6 +4,7 @@ namespace tuanlq11\cms\form\fieldtype;
 use Illuminate\Database\Eloquent\Model;
 use Kris\LaravelFormBuilder\Fields\SelectType;
 use Kris\LaravelFormBuilder\Form;
+use Session;
 
 /**
  * Created by Mr.Tuan.
@@ -25,7 +26,7 @@ class RelationSelectBox extends SelectType
         $none_selected_item = isset($options['none_selected_item']) ? $options['none_selected_item'] : true;
 
         /** Detect I18N */
-        $locale  = \Config::get('app.locale');
+        $locale  = Session::get('cms.locale', \Config::get('app.locale', 'en'));
         $is_i18n = method_exists($model, 'saveI18N');
         $query   = $is_i18n ? $model::I18N($locale) : $model::query();
         /** END **/
