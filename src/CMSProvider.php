@@ -72,9 +72,12 @@ class CMSProvider extends ServiceProvider
         $this->initCMS($this->app);
 
         /** Merge core config */
-        $config         = Smtp::where("cms_default", true)->first()->toArray();
-        $config["from"] = ["address" => $config["from"], "name" => null];
-        $this->app["config"]->set("mail", array_merge($this->app["config"]->get("mail"), $config));
+        $config = Smtp::where("cms_default", true)->first();
+        if ($config) {
+            $config         = $config->toArray();
+            $config["from"] = ["address" => $config["from"], "name" => null];
+            $this->app["config"]->set("mail", array_merge($this->app["config"]->get("mail"), $config));
+        }
 
         $this->mergeConfigFrom(__DIR__ . '/configs/config.php', 'cms');
         $this->replaceConfigFrom(__DIR__ . '/configs/form-builder.php', 'laravel-form-builder');
