@@ -50,7 +50,7 @@ trait Action
         if (!$obj = $this->loadBindingModel($obj)) {
             abort(404, trans('cms.not_found_object'));
         }
-        
+
         $form = $this->buildForm('show', 'show', $obj);
 
         return $this->renderView('show', get_defined_vars());
@@ -101,18 +101,18 @@ trait Action
         if (isset($_REQUEST["_saveAndCreate"])) {
             return redirect()
                 ->to($this->getGeneratedUrl('create'))
-                ->withSuccess("Create Success");
+                ->withSuccess(trans('message.create_successfully'));
         }
 
         if (isset($_REQUEST["_saveAndRedirect"])) {
             return redirect()
                 ->to($this->getGeneratedUrl('index'))
-                ->withSuccess("Create Success");
+                ->withSuccess(trans('message.create_successfully'));
         }
 
         return redirect()
             ->to($this->getGeneratedUrl('edit', [$model->id]))
-            ->withSuccess("Create Success");
+            ->withSuccess(trans('message.create_successfully'));
     }
 
     /**
@@ -158,7 +158,7 @@ trait Action
 
             return redirect()
                 ->action(sprintf('\App\Http\Modules\%1$s\%1$sActions@index', $this->getModuleName()))
-                ->withSuccess("Delete Success");
+                ->withSuccess(trans('message.delete_successfully'));
         }
 
         $this->buildForm('edit', 'update', $obj);
@@ -176,7 +176,7 @@ trait Action
 
         return redirect()
             ->action(sprintf('\App\Http\Modules\%1$s\%1$sActions@edit', $this->getModuleName()), $obj)
-            ->withSuccess('Update Success');
+            ->withSuccess(trans('message.update_successfully'));
     }
 
     /**
