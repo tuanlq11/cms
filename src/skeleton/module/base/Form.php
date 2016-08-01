@@ -67,7 +67,7 @@ trait Form
         /**
          * Use FormBuilder to init class form
          */
-        $url  = is_null($obj) ?
+        $url = is_null($obj) ?
             $this->getGeneratedUrl($targetAction) : $this->getGeneratedUrl($targetAction, $obj->id);
         $form = FormBuilder::create(
             $form,
@@ -119,9 +119,9 @@ trait Form
                         if (count($parseField) == 1) {
                             $fieldParams['value'] = $data[$parseField[0]];
                         } else if ($parseField[0] === 'i18n' && count($parseField) > 1) {
-                            $field                = last($parseField);
-                            $locale               = $parseField[1];
-                            $indexData            = array_pluck($data['i18n_relation'], $field, 'locale');
+                            $field = last($parseField);
+                            $locale = $parseField[1];
+                            $indexData = array_pluck($data['i18n_relation'], $field, 'locale');
                             $fieldParams['value'] = $indexData[$locale];
                         }
                     } catch (\Exception $ex) {
@@ -131,7 +131,7 @@ trait Form
             }
 
             /** Custom Prepare Validation in Progress */
-            $methodValidation = "{$key}PrepareValidation";
+            $methodValidation = sprintf("%sPrepareValidation", Str::studly($key));
             if (method_exists($this, $methodValidation)) {
                 $fieldParams['rules'] = call_user_func_array([$this, $methodValidation], [$fieldParams['rules'], $obj]);
             }
@@ -173,7 +173,7 @@ trait Form
 
         if (is_null($form)) return false;
         $formValidation = $this->getFormValidation($action);
-        $messages       = array_get($formValidation, 'messages');
+        $messages = array_get($formValidation, 'messages');
 
         $form->validate([], $messages);
 
@@ -189,13 +189,13 @@ trait Form
      */
     protected function getFormValidation($action = 'edit')
     {
-        $formConfig  = $this->getConfig("{$action}.field");
+        $formConfig = $this->getConfig("{$action}.field");
         $validations = [];
-        $messages    = [];
+        $messages = [];
 
         foreach ($formConfig as $key => $config) {
             $validations[$key] = isset($config['validation']) ? $config['validation'] : '';
-            $messages[$key]    = (isset($config['message']) && is_array($config['message'])) ?
+            $messages[$key] = (isset($config['message']) && is_array($config['message'])) ?
                 $config['message'] : [];
         }
 
