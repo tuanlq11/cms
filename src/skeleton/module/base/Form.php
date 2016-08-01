@@ -131,7 +131,7 @@ trait Form
             }
 
             /** Custom Prepare Validation in Progress */
-            $methodValidation = sprintf("%sPrepareValidation", Str::studly($key));
+            $methodValidation = sprintf("%sPrepareValidation", Str::studly(Str::slug($key)));
             if (method_exists($this, $methodValidation)) {
                 $fieldParams['rules'] = call_user_func_array([$this, $methodValidation], [$fieldParams['rules'], $obj]);
             }
