@@ -214,9 +214,20 @@ trait Form
     protected function setFormData($data)
     {
         foreach ($data as $key => $value) {
-            if (!$this->form->has($key)) continue;
-            $oldField = $this->form->getField($key);
-            $this->form->modify($key, $oldField->getType(), ['attr' => ['data-previous' => $value], 'value' => $value]);
+            if ($key == "i18n") {
+                foreach ($value as $locale => $fields) {
+                    foreach ($fields as $field => $content) {
+                        $key = "i18n][{$locale}][{$field}";
+                        if (!$this->form->has($key)) continue;
+                        $oldField = $this->form->getField($key);
+                        $this->form->modify($key, $oldField->getType(), ['attr' => ['data-previous' => $value[$locale][$field]], 'value' => $value[$locale][$field]]);
+                    }
+                }
+            } else {
+                if (!$this->form->has($key)) continue;
+                $oldField = $this->form->getField($key);
+                $this->form->modify($key, $oldField->getType(), ['attr' => ['data-previous' => $value], 'value' => $value]);
+            }
         }
     }
 }
