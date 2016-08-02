@@ -226,7 +226,10 @@ trait Form
             } else {
                 if (!$this->form->has($key)) continue;
                 $oldField = $this->form->getField($key);
-                $this->form->modify($key, $oldField->getType(), ['attr' => ['data-previous' => $value], 'value' => $value]);
+                $this->form->modify($key, $oldField->getType(), [
+                    'attr'  => ['data-previous' => is_array($value) ? json_encode($value) : $value],
+                    'value' => $value,
+                ]);
             }
         }
     }
