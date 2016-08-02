@@ -94,8 +94,8 @@ trait Action
         }
 
         $modelName = $this->getModelName();
-        $model     = new $modelName();
-        $model     = $this->applyDataToObject($model, $data);
+        $model = new $modelName();
+        $model = $this->applyDataToObject($model, $data);
         $model->save();
 
         if (isset($_REQUEST["_saveAndCreate"])) {
@@ -206,30 +206,26 @@ trait Action
      */
     public function filter()
     {
-        Route::dispatchToRoute(Request::create(URL::previous()));
-        $previousAction = $this->getCurrentAction();
-        if (!$previousAction) {
-            /** TODO: Throw error */
-        }
-
         if (isset($_REQUEST['_btnReset'])) {
             $this->clearFilter();
 
-            return redirect(URL::previous());
+            return redirect()
+                ->action(sprintf('\App\Http\Modules\%1$s\%1$sActions@index', $this->getModuleName()));
         }
 
         if (!$this->validateFilter()) {
             $this->setFilterData($this->getFilter());
 
             return redirect()
-                ->action(sprintf('\App\Http\Modules\%1$s\%1$sActions@' . $previousAction, $this->getModuleName()))
+                ->action(sprintf('\App\Http\Modules\%1$s\%1$sActions@index', $this->getModuleName()))
                 ->withErrors($this->form_filter->getErrors())
                 ->with('filter', $this->getFilter());
         }
 
         $this->saveFilter();
 
-        return redirect(URL::previous());
+        return redirect()
+            ->action(sprintf('\App\Http\Modules\%1$s\%1$sActions@index', $this->getModuleName()));
     }
 
 }
