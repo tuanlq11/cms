@@ -22,13 +22,13 @@ class Gateway
      */
     public function handle($request, Closure $next, $module)
     {
-        $action       = explode('@', Route::getCurrentRoute()->getActionName())[1];
+        $action = explode('@', Route::getCurrentRoute()->getActionName())[1];
         $this->config = Config::get(strtolower($module), [[]])[0];
-        $credentials  = $this->getConfig('credentials', $action);
-        $is_secure    = $this->getConfig('is_secure', $action)[0];
+        $credentials = $this->getConfig('credentials', $action);
+        $is_secure = $this->getConfig('is_secure', $action)[0];
 
         $logged = Auth::check();
-        $rules  = [];
+        $rules = [];
 
         if ($is_secure) {
             if (!$logged) {
@@ -41,13 +41,14 @@ class Gateway
             if ($user->super_admin) {
                 $rules = ['*'];
             } else if (!empty($credentials) && $credentials !== ['*']) {
-                $rules = array_pluck($user->roles()->where('is_active', true)->get(['id', 'name'])->toArray(), 'name', 'id');
+                $rules = array_pluck($user->roles()->I18N()->where('is_active', true)->get(['i18n.id', 'name'])->toArray(), 'name', 'id');
 
                 /** Get Group Role */
                 /** @var array $groupRules */
                 $groupRules = $user->groups()->where('is_active', true)->with([
                     'roles' => function ($subQuery) {
-                        $subQuery->select(['id', 'name']);
+                        $subQuery->I18N()
+                            ->select(['i18n.id', 'name']);
 
                         return $subQuery;
                     },
@@ -100,7 +101,7 @@ class Gateway
 
         if ($action) {
             $exactConfig = (array)array_get($this->config, sprintf('%s.%s', $action, $key), []);
-            $config      = array_replace_recursive($config, $exactConfig);
+            $config = array_replace_recursive($config, $exactConfig);
         }
 
         if ($config === []) {
