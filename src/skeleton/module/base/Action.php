@@ -206,18 +206,24 @@ trait Action
      */
     public function filter()
     {
+        Route::dispatchToRoute($request = Request::create(URL::previous()));
+        $previousAction = explode("@", Route::currentRouteAction())[1];
+        $queryParams = $request->query->all();
+
+        if (isset($queryParams["page"])) unset($queryParams["page"]);
+
         if (isset($_REQUEST['_btnReset'])) {
             $this->clearFilter();
 
             return redirect()
-                ->action(sprintf('\App\Http\Modules\%1$s\%1$sActions@index', $this->getModuleName()));
+                ->action(sprintf('\App\Http\Modules\%1$s\%1$sActions@' . $previousAction, $this->getModuleName()), $queryParams);
         }
 
         if (!$this->validateFilter()) {
             $this->setFilterData($this->getFilter());
 
             return redirect()
-                ->action(sprintf('\App\Http\Modules\%1$s\%1$sActions@index', $this->getModuleName()))
+                ->action(sprintf('\App\Http\Modules\%1$s\%1$sActions@' . $previousAction, $this->getModuleName()), $queryParams)
                 ->withErrors($this->form_filter->getErrors())
                 ->with('filter', $this->getFilter());
         }
@@ -225,7 +231,7 @@ trait Action
         $this->saveFilter();
 
         return redirect()
-            ->action(sprintf('\App\Http\Modules\%1$s\%1$sActions@index', $this->getModuleName()));
+            ->action(sprintf('\App\Http\Modules\%1$s\%1$sActions@' . $previousAction, $this->getModuleName()), $queryParams);
     }
 
 }
