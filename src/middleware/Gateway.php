@@ -22,13 +22,13 @@ class Gateway
      */
     public function handle($request, Closure $next, $module)
     {
-        $action = explode('@', Route::getCurrentRoute()->getActionName())[1];
+        $action       = explode('@', Route::getCurrentRoute()->getActionName())[1];
         $this->config = Config::get(strtolower($module), [[]])[0];
-        $credentials = $this->getConfig('credentials', $action);
-        $is_secure = $this->getConfig('is_secure', $action)[0];
+        $credentials  = (array)$this->getConfig('credentials', $action);
+        $is_secure    = $this->getConfig('is_secure', $action)[0];
 
         $logged = Auth::check();
-        $rules = [];
+        $rules  = [];
 
         if ($is_secure) {
             if (!$logged) {
@@ -40,7 +40,7 @@ class Gateway
 
             if ($user->super_admin) {
                 $rules = ['*'];
-            } else if (!empty($credentials) && $credentials !== ['*']) {
+            } else if ($credentials !== ['*']) {
                 $rules = array_pluck($user->roles()->I18N()->where('is_active', true)->get(['i18n.id', 'name'])->toArray(), 'name', 'id');
 
                 /** Get Group Role */
@@ -101,7 +101,7 @@ class Gateway
 
         if ($action) {
             $exactConfig = (array)array_get($this->config, sprintf('%s.%s', $action, $key), []);
-            $config = array_replace_recursive($config, $exactConfig);
+            $config      = array_replace_recursive($config, $exactConfig);
         }
 
         if ($config === []) {
