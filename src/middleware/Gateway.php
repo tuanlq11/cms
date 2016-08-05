@@ -59,7 +59,7 @@ class Gateway
                 }
                 /** END */
 
-                $matchRules = array_intersect($credentials, array_values($rules));
+                $matchRules = array_intersect($credentials, array_keys($rules));
 
                 if (empty($matchRules)) {
                     abort(404, 'Permission deny');

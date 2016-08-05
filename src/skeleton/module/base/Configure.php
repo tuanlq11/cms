@@ -133,7 +133,7 @@ trait Configure
         foreach ($rawConfig as $config) {
             $action = $config['action'];
             if (!isset($configurations[$action])) $configurations[$action] = ['credentials' => []];
-            $configurations[$action]['credentials'][] = $config['role']['name'];
+            $configurations[$action]['credentials'][] = $config['role']['id'];
         }
 
         $this->dynamic_configuration['all'] = $configurations;
