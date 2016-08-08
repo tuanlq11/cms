@@ -19,7 +19,7 @@ class RelationTwoSelectBox extends SelectType
      *
      * @param       $name
      * @param       $type
-     * @param Form $parent
+     * @param Form  $parent
      * @param array $options
      */
     public function __construct($name, $type, Form $parent, array $options)
@@ -50,6 +50,12 @@ class RelationTwoSelectBox extends SelectType
         $is_i18n = method_exists($model, 'saveI18N');
         $query   = $is_i18n ? $model::I18N($locale) : $model::query();
         /** END **/
+
+        if (key_exists('filter', $options) && count($options['filter']) > 0) {
+            foreach ($options['filter'] as $key => $item) {
+                $query->where($key, $item['condition'], $item['value']);
+            }
+        }
 
         /** Parse to key-name format {$table}.{$field} */
         $keyName = strpos($options['primary'], '.') ? $options['primary'] : (new $model)->getTable() . "." . $options['primary'];
