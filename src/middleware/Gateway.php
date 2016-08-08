@@ -47,8 +47,10 @@ class Gateway
                 /** @var array $groupRules */
                 $groupRules = $user->groups()->where('is_active', true)->with([
                     'roles' => function ($subQuery) {
+
                         $subQuery->I18N()
-                            ->select(['i18n.id', 'name']);
+                            ->select(['i18n.id', 'name'])
+                            ->where("is_active", true);
 
                         return $subQuery;
                     },
