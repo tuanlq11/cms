@@ -53,7 +53,7 @@ trait Action
 
         $form = $this->buildForm('show', 'show', $obj);
 
-        return $this->renderView('show', get_defined_vars());
+        return $this->renderView('show', get_defined_vars(), $obj);
     }
 
     /**
@@ -94,8 +94,8 @@ trait Action
         }
 
         $modelName = $this->getModelName();
-        $model = new $modelName();
-        $model = $this->applyDataToObject($model, $data);
+        $model     = new $modelName();
+        $model     = $this->applyDataToObject($model, $data);
         $model->save();
 
         if (isset($_REQUEST["_saveAndCreate"])) {
@@ -208,7 +208,7 @@ trait Action
     {
         Route::dispatchToRoute($request = Request::create(URL::previous()));
         $previousAction = explode("@", Route::currentRouteAction())[1];
-        $queryParams = $request->query->all();
+        $queryParams    = $request->query->all();
 
         if (isset($queryParams["page"])) unset($queryParams["page"]);
 
