@@ -31,6 +31,12 @@ class RelationSelectBox extends SelectType
         $query   = $is_i18n ? $model::I18N($locale) : $model::query();
         /** END **/
 
+        if (key_exists('filter', $options) && count($options['filter']) > 0) {
+            foreach ($options['filter'] as $key => $item) {
+                $query->where($key, $item['condition'], $item['value']);
+            }
+        }
+
         /** Parse to key-name format {$table}.{$field} */
         $keyName = strpos($options['primary'], '.') ? $options['primary'] : (new $model)->getTable() . "." . $options['primary'];
 
