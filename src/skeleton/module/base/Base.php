@@ -225,7 +225,7 @@ class Base extends Controller
         $rules       = Session::get(sprintf("%s-preload", strtolower($this->getModuleName())), ['rules' => []])['rules'];
         $credentials = $this->getConfig('credentials', $action);
         if ($rules === ['*'] || $credentials === ['*']) return true;
-        $matchRules = array_intersect($credentials, array_values($rules));
+        $matchRules = array_intersect($credentials, array_keys($rules));
 
         return !empty($matchRules);
     }
