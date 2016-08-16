@@ -15,7 +15,6 @@
     "kris/laravel-form-builder": "^1.6",
     "waavi/translation": "2.1.4.*",
     "tuanlq11/auditing": "0.2.*",
-    "tuanlq11/dbi18n": "1.0.*",
     "barryvdh/laravel-debugbar": "2.2.*"
   },
   "autoload": {
