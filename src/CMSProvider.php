@@ -72,11 +72,13 @@ class CMSProvider extends ServiceProvider
         $this->initCMS($this->app);
 
         /** Merge core config */
-        $config = Smtp::where("cms_default", true)->first();
-        if ($config) {
-            $config         = $config->toArray();
-            $config["from"] = ["address" => $config["from"], "name" => null];
-            $this->app["config"]->set("mail", array_merge($this->app["config"]->get("mail"), $config));
+        if (\Schema::hasTable("smtps")) {
+            $config = Smtp::where("cms_default", true)->first();
+            if ($config) {
+                $config         = $config->toArray();
+                $config["from"] = ["address" => $config["from"], "name" => null];
+                $this->app["config"]->set("mail", array_merge($this->app["config"]->get("mail"), $config));
+            }
         }
 
         $this->mergeConfigFrom(__DIR__ . '/configs/config.php', 'cms');
